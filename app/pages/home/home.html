@@ -9,34 +9,9 @@
 
 <ion-content class="cards-bg">
   
-  <div class="message-container">
+  <div *ngFor="#message of messages" class="message-container">
     <div class="chat-bubble left">
-      ¡Hola!
-    </div>
-  </div>
-
-  <div class="message-container">
-    <div class="chat-bubble left">
-      ¿Podrías decirme tu nombre?
-    </div>
-  </div>
-
-  <div class="message-container">
-    <div class="chat-bubble right">
-        Hola
-    </div>
-  </div>
-
-  <div class="message-container">
-    <div class="chat-bubble right">
-      Mi nombre es...
-      <button block (click)="doPrompt()">Responder</button>
-    </div>
-  </div>
-
-  <div class="message-container">
-    <div class="chat-bubble left">
-      <ion-spinner name="dots"></ion-spinner>
+      {{message}}
     </div>
   </div>
 </ion-content>

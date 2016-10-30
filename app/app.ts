@@ -3,10 +3,10 @@ import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import { TabsPage } from './pages/tabs/tabs';
 
-
 @Component({
   templateUrl: 'build/app.html'
 })
+
 export class MyApp {
 
   public rootPage: any;
