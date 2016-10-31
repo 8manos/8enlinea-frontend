@@ -9,7 +9,7 @@
 
 <ion-content class="cards-bg">
   
-  <div *ngFor="#message of messages" class="message-container">
+  <div *ngFor="let message of messages" class="message-container">
     <div class="chat-bubble left">
       {{message}}
     </div>

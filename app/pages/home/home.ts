@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
 import {Http} from "@angular/http";
 import {NgZone} from "@angular/core";
-import * as io from "socket.io-client";
-
+declare var socketIOClientStatic:any;
+declare var SailsIOClient:any;
+declare var io:any;
 
 @Component({
   templateUrl: 'build/pages/home/home.html'
@@ -17,25 +18,34 @@ export class HomePage {
   private socket;
   
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public http: Http) {
+
         this.messages = [];
-        this.socketHost = "http://ochoenlinea-backend.herokuapp.com";
+        this.socketHost = "https://ochoenlinea-backend.herokuapp.com";
         this.zone = new NgZone({enableLongStackTrace: false});
-        http.get(this.socketHost + "/fetch").subscribe((success) => {
+        http.get(this.socketHost + "/").subscribe((success) => {
             var data = success.json();
+            console.log( "response: ", data );
             for(var i = 0; i < data.length; i++) {
                 this.messages.push(data[i].message);
             }
         }, (error) => {
             console.log(JSON.stringify(error));
         });
-        this.messages.push( "test message" );
-        this.socket = io(this.socketHost);
+        this.messages.push( "¡Hola!" );
+        this.messages.push( "Bienvenido a 8enlinea" );
+        this.socket = io.sails.connect( this.socketHost );
+
         this.socket.on("connect", function(){
           console.log("connected");
         });
-        this.socket.on("chat_message", (msg) => {
+
+        this.socket.get('/intro', null, function (resData) {
+          console.log( resData ); 
+        });
+
+        this.socket.on("message", (msg) => {
             this.zone.run(() => {
-                this.messages.push(msg);
+                this.messages.push(msg.greeting);
             });
         });
  
