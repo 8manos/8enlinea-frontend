@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController } from 'ionic-angular';
+import { AlertController, NavController, ActionSheetController } from 'ionic-angular';
 import {Http} from "@angular/http";
 import {NgZone} from "@angular/core";
 declare var socketIOClientStatic:any;
@@ -13,26 +13,38 @@ declare var io:any;
 export class HomePage {
 
   public messages:Array<Object>;
+  public buttons:Array<Object>;
   public socketHost:String;
   private zone; 
   private socket;
   
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public http: Http) {
+  constructor( public actionSheetCtrl: ActionSheetController, public navCtrl: NavController, public alertCtrl: AlertController, public http: Http) {
 
         this.messages = [];
-        this.socketHost = "https://ochoenlinea-backend.herokuapp.com";
-        this.zone = new NgZone({enableLongStackTrace: false});
+        this.buttons = [
+         {
+           text: 'Cancelar',
+           role: 'cancel',
+           handler: () => {
+             console.log('Cancel clicked');
+           }
+         }
+       ];
+
+        this.socketHost = "http://127.0.0.1:1337";
+
+        this.zone = new NgZone({ enableLongStackTrace: false });
+
         http.get(this.socketHost + "/").subscribe((success) => {
             var data = success.json();
-            console.log( "response: ", data );
             for(var i = 0; i < data.length; i++) {
                 this.messages.push(data[i].message);
             }
         }, (error) => {
             console.log(JSON.stringify(error));
         });
+
         this.messages.push( "¡Hola!" );
-        this.messages.push( "Bienvenido a 8enlinea" );
         this.socket = io.sails.connect( this.socketHost );
 
         this.socket.on("connect", function(){
@@ -45,37 +57,35 @@ export class HomePage {
 
         this.socket.on("message", (msg) => {
             this.zone.run(() => {
-                this.messages.push(msg.greeting);
+                console.log ("Recibimos: ", msg)
+                this.messages.push(msg.plantilla.mensaje);
+                for (var i = 0; i < msg.plantilla.respuestas.length; ++i) {
+                  var destino = msg.plantilla.respuestas[i].destino;
+                  this.buttons.push({
+                    text: msg.plantilla.respuestas[i].texto,
+                    handler: () => {
+                      this.socket.get('/plantilla/4', null, (resData) => {
+                        this.zone.run(() => { 
+                           console.log( resData ); 
+                           console.log( "Mensajes ", this.messages );
+                           this.messages.push( resData.mensaje );
+
+                          })} ); 
+                    }
+                  });
+                }
+                console.log('Buttons updated', this.buttons );
             });
         });
- 
+
   }
 
-  doPrompt() {
-    let prompt = this.alertCtrl.create({
-      title: 'Mucho gusto',
-      message: "Escribe tu nombre y así te llamaremos de ahora en adelante",
-      inputs: [
-        {
-          name: 'nombre',
-          placeholder: 'Nombre Completo'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Enviar',
-          handler: data => {
-            console.log('Saved clicked');
-          }
-        }
-      ]
+  presentOptions() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Responder',
+      buttons: this.buttons
     });
-    prompt.present();
+
+    actionSheet.present();
   }
 }

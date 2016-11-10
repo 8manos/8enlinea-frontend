@@ -101,17 +101,26 @@ var ionic_angular_1 = require('ionic-angular');
 var http_1 = require("@angular/http");
 var core_2 = require("@angular/core");
 var HomePage = (function () {
-    function HomePage(navCtrl, alertCtrl, http) {
+    function HomePage(actionSheetCtrl, navCtrl, alertCtrl, http) {
         var _this = this;
+        this.actionSheetCtrl = actionSheetCtrl;
         this.navCtrl = navCtrl;
         this.alertCtrl = alertCtrl;
         this.http = http;
         this.messages = [];
-        this.socketHost = "https://ochoenlinea-backend.herokuapp.com";
+        this.buttons = [
+            {
+                text: 'Cancelar',
+                role: 'cancel',
+                handler: function () {
+                    console.log('Cancel clicked');
+                }
+            }
+        ];
+        this.socketHost = "http://127.0.0.1:1337";
         this.zone = new core_2.NgZone({ enableLongStackTrace: false });
         http.get(this.socketHost + "/").subscribe(function (success) {
             var data = success.json();
-            console.log("response: ", data);
             for (var i = 0; i < data.length; i++) {
                 _this.messages.push(data[i].message);
             }
@@ -119,7 +128,6 @@ var HomePage = (function () {
             console.log(JSON.stringify(error));
         });
         this.messages.push("¡Hola!");
-        this.messages.push("Bienvenido a 8enlinea");
         this.socket = io.sails.connect(this.socketHost);
         this.socket.on("connect", function () {
             console.log("connected");
@@ -129,42 +137,39 @@ var HomePage = (function () {
         });
         this.socket.on("message", function (msg) {
             _this.zone.run(function () {
-                _this.messages.push(msg.greeting);
+                console.log("Recibimos: ", msg);
+                _this.messages.push(msg.plantilla.mensaje);
+                for (var i = 0; i < msg.plantilla.respuestas.length; ++i) {
+                    var destino = msg.plantilla.respuestas[i].destino;
+                    _this.buttons.push({
+                        text: msg.plantilla.respuestas[i].texto,
+                        handler: function () {
+                            _this.socket.get('/plantilla/4', null, function (resData) {
+                                _this.zone.run(function () {
+                                    console.log(resData);
+                                    console.log("Mensajes ", _this.messages);
+                                    _this.messages.push(resData.mensaje);
+                                });
+                            });
+                        }
+                    });
+                }
+                console.log('Buttons updated', _this.buttons);
             });
         });
     }
-    HomePage.prototype.doPrompt = function () {
-        var prompt = this.alertCtrl.create({
-            title: 'Mucho gusto',
-            message: "Escribe tu nombre y así te llamaremos de ahora en adelante",
-            inputs: [
-                {
-                    name: 'nombre',
-                    placeholder: 'Nombre Completo'
-                },
-            ],
-            buttons: [
-                {
-                    text: 'Cancelar',
-                    handler: function (data) {
-                        console.log('Cancel clicked');
-                    }
-                },
-                {
-                    text: 'Enviar',
-                    handler: function (data) {
-                        console.log('Saved clicked');
-                    }
-                }
-            ]
+    HomePage.prototype.presentOptions = function () {
+        var actionSheet = this.actionSheetCtrl.create({
+            title: 'Responder',
+            buttons: this.buttons
         });
-        prompt.present();
+        actionSheet.present();
     };
     HomePage = __decorate([
         core_1.Component({
             templateUrl: 'build/pages/home/home.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.AlertController, http_1.Http])
+        __metadata('design:paramtypes', [ionic_angular_1.ActionSheetController, ionic_angular_1.NavController, ionic_angular_1.AlertController, http_1.Http])
     ], HomePage);
     return HomePage;
 }());
