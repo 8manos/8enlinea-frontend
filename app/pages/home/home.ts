@@ -31,7 +31,7 @@ export class HomePage {
          }
        ];
 
-        this.socketHost = "http://127.0.0.1:1337";
+        this.socketHost = "http://ochoenlinea-backend.herokuapp.com/";
 
         this.zone = new NgZone({ enableLongStackTrace: false });
 
