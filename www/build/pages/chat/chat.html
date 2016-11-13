@@ -1,0 +1,40 @@
+<ion-header>
+	<ion-navbar>
+		<button menuToggle="menu_conversaciones">
+			<ion-icon name="chatboxes"></ion-icon>
+		</button>
+		<ion-title>8enlinea</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-menu [content]="content" id="menu_conversaciones">
+
+  <ion-toolbar>
+    <ion-title>Conversaciones</ion-title>
+  </ion-toolbar>
+
+  <ion-content>
+    <ion-list>
+    	<ion-item *ngFor="let conversacion of conversaciones">
+	      <ion-avatar item-left>
+	        <img src="http://placehold.it/60x60">
+	      </ion-avatar>
+	      <h2>{{conversacion.id}}</h2>
+	      <ion-note item-right>{{conversacion.updatedAt}}</ion-note>
+	    </ion-item>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+
+<ion-content padding>
+	<h1>Contenido</h1>
+</ion-content>
+
+<ion-footer>
+  <ion-item >
+    <ion-input (focus)="presentOptions()" placeholder="Responder..."></ion-input>
+  </ion-item>
+</ion-footer>
