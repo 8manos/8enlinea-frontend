@@ -32,8 +32,8 @@ export class ioService {
     }
 
     socket_url(){
-      // return "http://localhost:1337/";
-      return "https://ochoenlinea-backend.herokuapp.com/";
+      // return "//localhost:1337/";
+      return "//ochoenlinea-backend.herokuapp.com/";
     }
     connect( socket_host, callback:Function ) {
       if( this.connected ){

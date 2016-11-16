@@ -81,7 +81,7 @@ export class HomePage implements OnInit {
          }
        ];
       for (var i = 0; i < message["plantilla"].respuestas.length; ++i) {
-        var respuesta = message["plantilla"].respuestas[i];
+        let respuesta = message["plantilla"].respuestas[i];
         this.buttons.push({
           text: message["plantilla"].respuestas[i].texto,
           handler: () => {
