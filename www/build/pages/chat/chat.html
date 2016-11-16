@@ -15,11 +15,11 @@
 
   <ion-content>
     <ion-list>
-    	<ion-item *ngFor="let conversacion of conversaciones">
+    	<ion-item *ngFor="let conversacion of conversaciones" (click)="load_conversacion(conversacion)">
 	      <ion-avatar item-left>
 	        <img src="http://placehold.it/60x60">
 	      </ion-avatar>
-	      <h2>{{conversacion.id}}</h2>
+	      <ion-label>Conversación: {{conversacion.id}}</ion-label>
 	      <ion-note item-right>{{conversacion.updatedAt}}</ion-note>
 	    </ion-item>
     </ion-list>

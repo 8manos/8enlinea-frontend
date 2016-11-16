@@ -1,6 +1,10 @@
+import { BehaviorSubject } from 'rxjs/Rx'
+import { Conversacion } from '../models/Conversacion'
 import { Injectable } from '@angular/core'
+import { Mensaje } from '../models/Mensaje'
 import { Observable } from 'rxjs/Observable'
 import { Subject } from 'rxjs/Subject'
+
 declare var socketIOClientStatic:any;
 declare var SailsIOClient:any;
 declare var io:any;
@@ -8,6 +12,8 @@ declare var io:any;
 @Injectable()
 export class ioService {
     private _ioMessage$: Subject<{}>;
+    private _conversaciones: BehaviorSubject<Array<Object>> = new BehaviorSubject(Array([]));
+    public conversaciones: Observable<Array<Object>> = this._conversaciones.asObservable();
     private socket;
     public socketHost:String;
     public connected;
@@ -26,7 +32,7 @@ export class ioService {
     }
 
     socket_url(){
-      //return "http://localhost:1337/";
+      // return "http://localhost:1337/";
       return "http://ochoenlinea-backend.herokuapp.com/";
     }
     connect( socket_host, callback:Function ) {
@@ -67,29 +73,25 @@ export class ioService {
     }
 
     getConversaciones( ) {
-      var socket_host = this.socket_url();
-      console.log("Connected status: ", this.connected );
-      if( this.connected ){ 
-        console.log( "Getting conversaciones from io service");
-        this.socket.get('/user/conversaciones', null, (resData) => {
-          console.log( 'conversaciones: ', resData ); 
-          return resData;
-        });
-      }else{
-        console.log( "Waiting for connection...");
-        this.connect( socket_host, () => { this.getConversaciones() } );
-      }
+      console.log( "Getting conversaciones from io service");
+      this.socket.get('/user/conversaciones', null, (resData) => {
+        console.log( 'Conversaciones: ', resData ); 
+        this._conversaciones.next( resData );
+      });
     }
 
     sendResponse( destino ) {
       console.log( "Sending response from chat service: ", destino );
-      this.socket.post('/room/submit', {
-          message: destino
+      this.socket.get('/conversacion/responder', {
+          destino: destino
+      }, ( resData ) => {
+        console.log("Response data: ", resData );
+        this._ioMessage$.next(resData);
       });
     }
 
     unsubscribeToSails() {
-        this.socket.get('/room/leave');
+        this.socket.get('/logout');
         this._ioMessage$.next({
             message: "Left Chat Room"
         });
