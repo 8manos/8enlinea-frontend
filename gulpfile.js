@@ -38,8 +38,9 @@ var isRelease = argv.indexOf('--release') > -1;
 
 gulp.task('watch', ['clean'], function(done){
   runSequence(
-    ['sass', 'html', 'fonts', 'scripts'],
+    ['sass', 'html', 'fonts', 'scripts', 'images'],
     function(){
+      gulpWatch('app/assets/images/*', function(){ gulp.start('images'); });
       gulpWatch('app/**/*.scss', function(){ gulp.start('sass'); });
       gulpWatch('app/**/*.html', function(){ gulp.start('html'); });
       buildBrowserify({ watch: true }).on('end', done);
@@ -49,7 +50,7 @@ gulp.task('watch', ['clean'], function(done){
 
 gulp.task('build', ['clean'], function(done){
   runSequence(
-    ['sass', 'html', 'fonts', 'scripts'],
+    ['sass', 'html', 'fonts', 'scripts', 'images'],
     function(){
       buildBrowserify({
         minify: isRelease,
@@ -62,6 +63,11 @@ gulp.task('build', ['clean'], function(done){
       }).on('end', done);
     }
   );
+});
+
+gulp.task('images', function() {
+    return gulp.src(['app/assets/images/*'])
+        .pipe(gulp.dest('www/build/images'));
 });
 
 gulp.task('sass', buildSass);

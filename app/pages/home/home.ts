@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, Content, NavController, ActionSheetController } from 'ionic-angular';
-import {Http} from "@angular/http";
-import {NgZone} from "@angular/core";
+import { ChatPage } from '../chat/chat';
+import { Http } from "@angular/http";
+import { NgZone } from "@angular/core";
 import { ioService } from '../../services/io.service'
 declare var socketIOClientStatic:any;
 declare var SailsIOClient:any;
@@ -46,7 +47,7 @@ export class HomePage implements OnInit {
 
         this.zone = new NgZone({ enableLongStackTrace: false });
 
-        this.messages.push( "¡Hola!" );
+        this.messages.push( "¡Hola! Bienvenido a 8enlinea." );
 
   }
 
@@ -93,6 +94,33 @@ export class HomePage implements OnInit {
       setTimeout(() => {
         this.content.scrollToBottom(300);
       });
+
+      console.log( 'Running actions in home');
+      if( message["plantilla"].acciones.length > 0 ){
+        for (var i = 0; i < message["plantilla"].acciones.length; ++i) {
+          console.log( "Intentando ejectutar acción: ", message["plantilla"].acciones[i] );
+          this.accion( message["plantilla"].acciones[i] );
+        }
+      }
+    });
+  }
+
+  accion( accion ){
+    if( accion.tipo == "inicia_conversacion" ){
+      console.log( "Iniciando conversacion: ", accion.parametro );
+      if( accion.parametro == 'grupal' ){      
+        setTimeout(() => {
+          this.navCtrl.setRoot( ChatPage );
+        }, 4000);
+      }
+    }else if( accion.tipo == "activa_mensaje" ){
+      console.log( "Activando mensaje: ", accion.parametro );
+      this._ioService.sendResponse( accion.parametro );
+    }else{
+      console.log( "Acción pendiente de implementación: ", accion.tipo );
+    }
+    setTimeout(() => {
+      this.content.scrollToBottom(300);
     });
   }
 

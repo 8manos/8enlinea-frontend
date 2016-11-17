@@ -1,15 +1,32 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Bienvenido a 8enlinea</ion-title>
+    <ion-title>8enlinea</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content class="cards-bg">
+<ion-content class="cards-bg custom-bg">
+
+  <div class="project-info">
+    <ion-img src="build/images/logo.grande.png" width="142"></ion-img>
+    <div class="content">
+      <p>Proyecto ganador de la "Beca para el desarrollo de documental interactivo para la web 2016"</p>
+      <div class="logos">
+        Mincultura / Todos por un nuevo país
+      </div>
+    </div>
+  </div>
   
   <div *ngFor="let message of messages" class="message-container">
     <div class="chat-bubble left">
       {{message}}
+
+      <div id="circleG">
+        <div id="circleG_1" class="circleG"></div>
+        <div id="circleG_2" class="circleG"></div>
+        <div id="circleG_3" class="circleG"></div>
+      </div>
     </div>
+
   </div>
 
 </ion-content>

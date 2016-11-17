@@ -4615,6 +4615,25 @@ sup[favorite],
 ion-icon[favorite] {
   color: #69BB7B; }
 
+h1[content_bg],
+h2[content_bg],
+h3[content_bg],
+h4[content_bg],
+h5[content_bg],
+h6[content_bg],
+p[content_bg],
+span[content_bg],
+a:not([button])[content_bg],
+small[content_bg],
+b[content_bg],
+i[content_bg],
+strong[content_bg],
+em[content_bg],
+sub[content_bg],
+sup[content_bg],
+ion-icon[content_bg] {
+  color: #f4d03d; }
+
 ion-action-sheet {
   position: absolute;
   top: 0;
@@ -4990,6 +5009,10 @@ ion-badge {
   color: #fff;
   background-color: #69BB7B; }
 
+.badge-content_bg {
+  color: #000;
+  background-color: #f4d03d; }
+
 .button {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -5357,6 +5380,38 @@ ion-button-effect {
   .button-clear-favorite:hover:not(.disable-hover) {
     color: #69BB7B; }
 
+.button-content_bg {
+  color: #000;
+  background-color: #f4d03d; }
+  .button-content_bg:hover:not(.disable-hover) {
+    background-color: #f4d03d; }
+  .button-content_bg.activated {
+    background-color: #e0bf38;
+    opacity: 1; }
+  .button-content_bg ion-button-effect {
+    background-color: #000; }
+
+.button-outline-content_bg {
+  border-color: #e8c63a;
+  color: #e8c63a;
+  background-color: transparent; }
+  .button-outline-content_bg:hover:not(.disable-hover) {
+    background-color: rgba(158, 158, 158, 0.1); }
+  .button-outline-content_bg.activated {
+    background-color: transparent; }
+  .button-outline-content_bg ion-button-effect {
+    background-color: #e8c63a; }
+
+.button-clear-content_bg {
+  border-color: transparent;
+  color: #f4d03d;
+  background-color: transparent; }
+  .button-clear-content_bg.activated {
+    background-color: rgba(158, 158, 158, 0.2);
+    box-shadow: none; }
+  .button-clear-content_bg:hover:not(.disable-hover) {
+    color: #f4d03d; }
+
 .button-fab {
   position: absolute;
   overflow: hidden;
@@ -5584,6 +5639,12 @@ ion-checkbox[favorite] .checkbox-checked {
   ion-checkbox[favorite] .checkbox-checked .checkbox-inner {
     border-color: #fff; }
 
+ion-checkbox[content_bg] .checkbox-checked {
+  border-color: #f4d03d;
+  background-color: #f4d03d; }
+  ion-checkbox[content_bg] .checkbox-checked .checkbox-inner {
+    border-color: #000; }
+
 ion-chip {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -5660,6 +5721,10 @@ ion-chip ion-icon[dark] {
 ion-chip ion-icon[favorite] {
   color: #fff;
   background-color: #69BB7B; }
+
+ion-chip ion-icon[content_bg] {
+  color: #000;
+  background-color: #f4d03d; }
 
 [no-padding],
 [no-padding] scroll-content {
@@ -6392,6 +6457,10 @@ ion-item-divider[favorite] {
   color: #fff;
   background-color: #69BB7B; }
 
+ion-item-divider[content_bg] {
+  color: #000;
+  background-color: #f4d03d; }
+
 ion-item-sliding {
   background-color: #fff; }
 
@@ -6523,6 +6592,9 @@ ion-label[dark] {
 
 ion-label[favorite] {
   color: #69BB7B; }
+
+ion-label[content_bg] {
+  color: #f4d03d; }
 
 ion-list-header {
   display: -webkit-box;
@@ -7088,6 +7160,12 @@ ion-radio[favorite] .radio-checked {
 ion-radio[favorite] .radio-inner {
   background-color: #69BB7B; }
 
+ion-radio[content_bg] .radio-checked {
+  border-color: #f4d03d; }
+
+ion-radio[content_bg] .radio-inner {
+  background-color: #f4d03d; }
+
 .item-range .item-inner {
   overflow: visible; }
 
@@ -7368,6 +7446,21 @@ ion-range[favorite] .range-pin,
 ion-range[favorite] .range-pin::before {
   background: #69BB7B; }
 
+ion-range[content_bg] .range-knob-min .range-knob {
+  border: 2px solid #bdbdbd;
+  background: #fff; }
+
+ion-range[content_bg] .range-knob-min .range-pin,
+ion-range[content_bg] .range-knob-min .range-pin::before {
+  color: #fff;
+  background: #bdbdbd; }
+
+ion-range[content_bg] .range-bar-active,
+ion-range[content_bg] .range-knob,
+ion-range[content_bg] .range-pin,
+ion-range[content_bg] .range-pin::before {
+  background: #f4d03d; }
+
 ion-searchbar {
   position: relative;
   display: -webkit-box;
@@ -7595,6 +7688,13 @@ ion-segment[favorite] .segment-button {
   ion-segment[favorite] .segment-button.activated, ion-segment[favorite] .segment-button.segment-activated {
     border-color: #69BB7B;
     color: #69BB7B;
+    opacity: 1; }
+
+ion-segment[content_bg] .segment-button {
+  color: #f4d03d; }
+  ion-segment[content_bg] .segment-button.activated, ion-segment[content_bg] .segment-button.segment-activated {
+    border-color: #f4d03d;
+    color: #f4d03d;
     opacity: 1; }
 
 ion-select {
@@ -7916,6 +8016,16 @@ ion-tabs[favorite] ion-tabbar {
   ion-tabs[favorite] ion-tabbar tab-highlight {
     background: #fff; }
 
+ion-tabs[content_bg] ion-tabbar {
+  background-color: #f4d03d; }
+  ion-tabs[content_bg] ion-tabbar .tab-button {
+    color: rgba(0, 0, 0, 0.7); }
+  ion-tabs[content_bg] ion-tabbar .tab-button:hover:not(.disable-hover),
+  ion-tabs[content_bg] ion-tabbar .tab-button[aria-selected=true] {
+    color: #000; }
+  ion-tabs[content_bg] ion-tabbar tab-highlight {
+    background: #000; }
+
 ion-toggle {
   position: relative; }
 
@@ -8007,6 +8117,12 @@ ion-toggle[favorite] .toggle-checked {
 
 ion-toggle[favorite] .toggle-checked .toggle-inner {
   background-color: #69BB7B; }
+
+ion-toggle[content_bg] .toggle-checked {
+  background-color: #fbedb6; }
+
+ion-toggle[content_bg] .toggle-checked .toggle-inner {
+  background-color: #f4d03d; }
 
 ion-toast {
   position: absolute;
@@ -8539,6 +8655,28 @@ ion-buttons[right] {
     color: #fff;
     background-color: #61ac71; }
 
+.toolbar[primary] .bar-button-content_bg {
+  color: #f4d03d;
+  background-color: transparent; }
+  .toolbar[primary] .bar-button-content_bg:hover:not(.disable-hover) {
+    color: #f4d03d; }
+
+.toolbar[primary] .bar-button-outline-content_bg {
+  border-color: #e0bf38;
+  color: #e0bf38;
+  background-color: transparent; }
+  .toolbar[primary] .bar-button-outline-content_bg.activated {
+    background-color: transparent; }
+  .toolbar[primary] .bar-button-outline-content_bg ion-button-effect {
+    background-color: #e0bf38; }
+
+.toolbar[primary] .bar-button-solid-content_bg {
+  color: #000;
+  background-color: #f4d03d; }
+  .toolbar[primary] .bar-button-solid-content_bg.activated {
+    color: #000;
+    background-color: #e0bf38; }
+
 .bar-button-primary {
   color: #387ef5;
   background-color: transparent; }
@@ -8707,6 +8845,28 @@ ion-buttons[right] {
   .toolbar[secondary] .bar-button-solid-favorite.activated {
     color: #fff;
     background-color: #61ac71; }
+
+.toolbar[secondary] .bar-button-content_bg {
+  color: #f4d03d;
+  background-color: transparent; }
+  .toolbar[secondary] .bar-button-content_bg:hover:not(.disable-hover) {
+    color: #f4d03d; }
+
+.toolbar[secondary] .bar-button-outline-content_bg {
+  border-color: #e0bf38;
+  color: #e0bf38;
+  background-color: transparent; }
+  .toolbar[secondary] .bar-button-outline-content_bg.activated {
+    background-color: transparent; }
+  .toolbar[secondary] .bar-button-outline-content_bg ion-button-effect {
+    background-color: #e0bf38; }
+
+.toolbar[secondary] .bar-button-solid-content_bg {
+  color: #000;
+  background-color: #f4d03d; }
+  .toolbar[secondary] .bar-button-solid-content_bg.activated {
+    color: #000;
+    background-color: #e0bf38; }
 
 .bar-button-secondary {
   color: #32db64;
@@ -8877,6 +9037,28 @@ ion-buttons[right] {
     color: #fff;
     background-color: #61ac71; }
 
+.toolbar[danger] .bar-button-content_bg {
+  color: #f4d03d;
+  background-color: transparent; }
+  .toolbar[danger] .bar-button-content_bg:hover:not(.disable-hover) {
+    color: #f4d03d; }
+
+.toolbar[danger] .bar-button-outline-content_bg {
+  border-color: #e0bf38;
+  color: #e0bf38;
+  background-color: transparent; }
+  .toolbar[danger] .bar-button-outline-content_bg.activated {
+    background-color: transparent; }
+  .toolbar[danger] .bar-button-outline-content_bg ion-button-effect {
+    background-color: #e0bf38; }
+
+.toolbar[danger] .bar-button-solid-content_bg {
+  color: #000;
+  background-color: #f4d03d; }
+  .toolbar[danger] .bar-button-solid-content_bg.activated {
+    color: #000;
+    background-color: #e0bf38; }
+
 .bar-button-danger {
   color: #f53d3d;
   background-color: transparent; }
@@ -9045,6 +9227,28 @@ ion-buttons[right] {
   .toolbar[light] .bar-button-solid-favorite.activated {
     color: #fff;
     background-color: #61ac71; }
+
+.toolbar[light] .bar-button-content_bg {
+  color: #f4d03d;
+  background-color: transparent; }
+  .toolbar[light] .bar-button-content_bg:hover:not(.disable-hover) {
+    color: #f4d03d; }
+
+.toolbar[light] .bar-button-outline-content_bg {
+  border-color: #e0bf38;
+  color: #e0bf38;
+  background-color: transparent; }
+  .toolbar[light] .bar-button-outline-content_bg.activated {
+    background-color: transparent; }
+  .toolbar[light] .bar-button-outline-content_bg ion-button-effect {
+    background-color: #e0bf38; }
+
+.toolbar[light] .bar-button-solid-content_bg {
+  color: #000;
+  background-color: #f4d03d; }
+  .toolbar[light] .bar-button-solid-content_bg.activated {
+    color: #000;
+    background-color: #e0bf38; }
 
 .bar-button-light {
   color: #f4f4f4;
@@ -9215,6 +9419,28 @@ ion-buttons[right] {
     color: #fff;
     background-color: #61ac71; }
 
+.toolbar[dark] .bar-button-content_bg {
+  color: #f4d03d;
+  background-color: transparent; }
+  .toolbar[dark] .bar-button-content_bg:hover:not(.disable-hover) {
+    color: #f4d03d; }
+
+.toolbar[dark] .bar-button-outline-content_bg {
+  border-color: #e0bf38;
+  color: #e0bf38;
+  background-color: transparent; }
+  .toolbar[dark] .bar-button-outline-content_bg.activated {
+    background-color: transparent; }
+  .toolbar[dark] .bar-button-outline-content_bg ion-button-effect {
+    background-color: #e0bf38; }
+
+.toolbar[dark] .bar-button-solid-content_bg {
+  color: #000;
+  background-color: #f4d03d; }
+  .toolbar[dark] .bar-button-solid-content_bg.activated {
+    color: #000;
+    background-color: #e0bf38; }
+
 .bar-button-dark {
   color: #222;
   background-color: transparent; }
@@ -9384,6 +9610,28 @@ ion-buttons[right] {
     color: #fff;
     background-color: #61ac71; }
 
+.toolbar[favorite] .bar-button-content_bg {
+  color: #f4d03d;
+  background-color: transparent; }
+  .toolbar[favorite] .bar-button-content_bg:hover:not(.disable-hover) {
+    color: #f4d03d; }
+
+.toolbar[favorite] .bar-button-outline-content_bg {
+  border-color: #e0bf38;
+  color: #e0bf38;
+  background-color: transparent; }
+  .toolbar[favorite] .bar-button-outline-content_bg.activated {
+    background-color: transparent; }
+  .toolbar[favorite] .bar-button-outline-content_bg ion-button-effect {
+    background-color: #e0bf38; }
+
+.toolbar[favorite] .bar-button-solid-content_bg {
+  color: #000;
+  background-color: #f4d03d; }
+  .toolbar[favorite] .bar-button-solid-content_bg.activated {
+    color: #000;
+    background-color: #e0bf38; }
+
 .bar-button-favorite {
   color: #69BB7B;
   background-color: transparent; }
@@ -9405,6 +9653,197 @@ ion-buttons[right] {
   .bar-button-solid-favorite.activated {
     color: #fff;
     background-color: #61ac71; }
+
+.toolbar[content_bg] .toolbar-background {
+  background: #f4d03d; }
+
+.toolbar[content_bg] .bar-button-default,
+.toolbar[content_bg] .bar-button-outline,
+.toolbar[content_bg] .toolbar-title {
+  color: #424242; }
+
+.toolbar[content_bg] .bar-button-default ion-button-effect,
+.toolbar[content_bg] .bar-button-outline ion-button-effect {
+  background-color: #424242; }
+
+.toolbar[content_bg] .bar-button-outline {
+  border-color: #424242; }
+
+.toolbar[content_bg] .bar-button-primary {
+  color: #387ef5;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-primary:hover:not(.disable-hover) {
+    color: #387ef5; }
+
+.toolbar[content_bg] .bar-button-outline-primary {
+  border-color: #3474e1;
+  color: #3474e1;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-primary.activated {
+    background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-primary ion-button-effect {
+    background-color: #3474e1; }
+
+.toolbar[content_bg] .bar-button-solid-primary {
+  color: #fff;
+  background-color: #387ef5; }
+  .toolbar[content_bg] .bar-button-solid-primary.activated {
+    color: #fff;
+    background-color: #3474e1; }
+
+.toolbar[content_bg] .bar-button-secondary {
+  color: #32db64;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-secondary:hover:not(.disable-hover) {
+    color: #32db64; }
+
+.toolbar[content_bg] .bar-button-outline-secondary {
+  border-color: #2ec95c;
+  color: #2ec95c;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-secondary.activated {
+    background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-secondary ion-button-effect {
+    background-color: #2ec95c; }
+
+.toolbar[content_bg] .bar-button-solid-secondary {
+  color: #fff;
+  background-color: #32db64; }
+  .toolbar[content_bg] .bar-button-solid-secondary.activated {
+    color: #fff;
+    background-color: #2ec95c; }
+
+.toolbar[content_bg] .bar-button-danger {
+  color: #f53d3d;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-danger:hover:not(.disable-hover) {
+    color: #f53d3d; }
+
+.toolbar[content_bg] .bar-button-outline-danger {
+  border-color: #e13838;
+  color: #e13838;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-danger.activated {
+    background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-danger ion-button-effect {
+    background-color: #e13838; }
+
+.toolbar[content_bg] .bar-button-solid-danger {
+  color: #fff;
+  background-color: #f53d3d; }
+  .toolbar[content_bg] .bar-button-solid-danger.activated {
+    color: #fff;
+    background-color: #e13838; }
+
+.toolbar[content_bg] .bar-button-light {
+  color: #f4f4f4;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-light:hover:not(.disable-hover) {
+    color: #f4f4f4; }
+
+.toolbar[content_bg] .bar-button-outline-light {
+  border-color: #e0e0e0;
+  color: #e0e0e0;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-light.activated {
+    background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-light ion-button-effect {
+    background-color: #e0e0e0; }
+
+.toolbar[content_bg] .bar-button-solid-light {
+  color: #000;
+  background-color: #f4f4f4; }
+  .toolbar[content_bg] .bar-button-solid-light.activated {
+    color: #000;
+    background-color: #e0e0e0; }
+
+.toolbar[content_bg] .bar-button-dark {
+  color: #222;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-dark:hover:not(.disable-hover) {
+    color: #222; }
+
+.toolbar[content_bg] .bar-button-outline-dark {
+  border-color: #343434;
+  color: #343434;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-dark.activated {
+    background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-dark ion-button-effect {
+    background-color: #343434; }
+
+.toolbar[content_bg] .bar-button-solid-dark {
+  color: #fff;
+  background-color: #222; }
+  .toolbar[content_bg] .bar-button-solid-dark.activated {
+    color: #fff;
+    background-color: #343434; }
+
+.toolbar[content_bg] .bar-button-favorite {
+  color: #69BB7B;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-favorite:hover:not(.disable-hover) {
+    color: #69BB7B; }
+
+.toolbar[content_bg] .bar-button-outline-favorite {
+  border-color: #61ac71;
+  color: #61ac71;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-favorite.activated {
+    background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-favorite ion-button-effect {
+    background-color: #61ac71; }
+
+.toolbar[content_bg] .bar-button-solid-favorite {
+  color: #fff;
+  background-color: #69BB7B; }
+  .toolbar[content_bg] .bar-button-solid-favorite.activated {
+    color: #fff;
+    background-color: #61ac71; }
+
+.toolbar[content_bg] .bar-button-content_bg {
+  color: #f4d03d;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-content_bg:hover:not(.disable-hover) {
+    color: #f4d03d; }
+
+.toolbar[content_bg] .bar-button-outline-content_bg {
+  border-color: #e0bf38;
+  color: #e0bf38;
+  background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-content_bg.activated {
+    background-color: transparent; }
+  .toolbar[content_bg] .bar-button-outline-content_bg ion-button-effect {
+    background-color: #e0bf38; }
+
+.toolbar[content_bg] .bar-button-solid-content_bg {
+  color: #000;
+  background-color: #f4d03d; }
+  .toolbar[content_bg] .bar-button-solid-content_bg.activated {
+    color: #000;
+    background-color: #e0bf38; }
+
+.bar-button-content_bg {
+  color: #f4d03d;
+  background-color: transparent; }
+  .bar-button-content_bg:hover:not(.disable-hover) {
+    color: #f4d03d; }
+
+.bar-button-outline-content_bg {
+  border-color: #e0bf38;
+  color: #e0bf38;
+  background-color: transparent; }
+  .bar-button-outline-content_bg.activated {
+    background-color: transparent; }
+  .bar-button-outline-content_bg ion-button-effect {
+    background-color: #e0bf38; }
+
+.bar-button-solid-content_bg {
+  color: #000;
+  background-color: #f4d03d; }
+  .bar-button-solid-content_bg.activated {
+    color: #000;
+    background-color: #e0bf38; }
 
 ion-nav > ion-page > .toolbar.statusbar-padding:first-child,
 ion-nav > ion-page > ion-header > .toolbar.statusbar-padding:first-child,
@@ -9480,6 +9919,7 @@ body {
 
 .chat-bubble {
   border-radius: 5px;
+  box-shadow: -5px 5px 6px 0px rgba(0, 0, 0, 0.07);
   display: inline-block;
   padding: 10px 18px;
   position: relative;
@@ -9493,11 +9933,11 @@ body {
     position: absolute;
     bottom: -6px; }
   .chat-bubble.left {
-    background-color: #d3d3d3;
+    background-color: #fff;
     float: left;
     margin-left: 55px; }
     .chat-bubble.left::before {
-      background-color: #d3d3d3;
+      background-color: #fff;
       left: 10px;
       bottom: -5px;
       -webkit-transform: rotate(45deg) skew(0deg); }
@@ -9513,3 +9953,187 @@ body {
 
 .message-container {
   clear: both; }
+
+ion-content.custom-bg {
+  background-color: #f4d03d;
+  background-image: url("../../build/images/fondo.texturado.png"), url("../../build/images/1.fondo.principal.jpg");
+  background-repeat: repeat, no-repeat;
+  background-blend-mode: normal, multiply;
+  background-size: auto, cover;
+  background-position: 0 0, 50% 0; }
+
+/* Generated by Font Squirrel (https://www.fontsquirrel.com) on November 16, 2016 */
+@font-face {
+  font-family: 'latoblack';
+  src: url("../../build/assets/fonts/lato-black-webfont.eot");
+  src: url("../../build/assets/fonts/lato-black-webfont.eot?#iefix") format("embedded-opentype"), url("../../build/assets/fonts/lato-black-webfont.woff2") format("woff2"), url("../../build/assets/fonts/lato-black-webfont.woff") format("woff"), url("../../build/assets/fonts/lato-black-webfont.ttf") format("truetype"), url("../../build/assets/fonts/lato-black-webfont.svg#latoblack") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'latoblack_italic';
+  src: url("../../build/assets/fonts/lato-blackitalic-webfont.eot");
+  src: url("../../build/assets/fonts/lato-blackitalic-webfont.eot?#iefix") format("embedded-opentype"), url("../../build/assets/fonts/lato-blackitalic-webfont.woff2") format("woff2"), url("../../build/assets/fonts/lato-blackitalic-webfont.woff") format("woff"), url("../../build/assets/fonts/lato-blackitalic-webfont.ttf") format("truetype"), url("../../build/assets/fonts/lato-blackitalic-webfont.svg#latoblack_italic") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'latobold';
+  src: url("../../build/assets/fonts/lato-bold-webfont.eot");
+  src: url("../../build/assets/fonts/lato-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../../build/assets/fonts/lato-bold-webfont.woff2") format("woff2"), url("../../build/assets/fonts/lato-bold-webfont.woff") format("woff"), url("../../build/assets/fonts/lato-bold-webfont.ttf") format("truetype"), url("../../build/assets/fonts/lato-bold-webfont.svg#latobold") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'latobold_italic';
+  src: url("../../build/assets/fonts/lato-bolditalic-webfont.eot");
+  src: url("../../build/assets/fonts/lato-bolditalic-webfont.eot?#iefix") format("embedded-opentype"), url("../../build/assets/fonts/lato-bolditalic-webfont.woff2") format("woff2"), url("../../build/assets/fonts/lato-bolditalic-webfont.woff") format("woff"), url("../../build/assets/fonts/lato-bolditalic-webfont.ttf") format("truetype"), url("../../build/assets/fonts/lato-bolditalic-webfont.svg#latobold_italic") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'latohairline';
+  src: url("../../build/assets/fonts/lato-hairline-webfont.eot");
+  src: url("../../build/assets/fonts/lato-hairline-webfont.eot?#iefix") format("embedded-opentype"), url("../../build/assets/fonts/lato-hairline-webfont.woff2") format("woff2"), url("../../build/assets/fonts/lato-hairline-webfont.woff") format("woff"), url("../../build/assets/fonts/lato-hairline-webfont.ttf") format("truetype"), url("../../build/assets/fonts/lato-hairline-webfont.svg#latohairline") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'latohairline_italic';
+  src: url("../../build/assets/fonts/lato-hairlineitalic-webfont.eot");
+  src: url("../../build/assets/fonts/lato-hairlineitalic-webfont.eot?#iefix") format("embedded-opentype"), url("../../build/assets/fonts/lato-hairlineitalic-webfont.woff2") format("woff2"), url("../../build/assets/fonts/lato-hairlineitalic-webfont.woff") format("woff"), url("../../build/assets/fonts/lato-hairlineitalic-webfont.ttf") format("truetype"), url("../../build/assets/fonts/lato-hairlineitalic-webfont.svg#latohairline_italic") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'latoitalic';
+  src: url("../../build/assets/fonts/lato-italic-webfont.eot");
+  src: url("../../build/assets/fonts/lato-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../../build/assets/fonts/lato-italic-webfont.woff2") format("woff2"), url("../../build/assets/fonts/lato-italic-webfont.woff") format("woff"), url("../../build/assets/fonts/lato-italic-webfont.ttf") format("truetype"), url("../../build/assets/fonts/lato-italic-webfont.svg#latoitalic") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'latolight';
+  src: url("../../build/assets/fonts/lato-light-webfont.eot");
+  src: url("../../build/assets/fonts/lato-light-webfont.eot?#iefix") format("embedded-opentype"), url("../../build/assets/fonts/lato-light-webfont.woff2") format("woff2"), url("../../build/assets/fonts/lato-light-webfont.woff") format("woff"), url("../../build/assets/fonts/lato-light-webfont.ttf") format("truetype"), url("../../build/assets/fonts/lato-light-webfont.svg#latolight") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'latolight_italic';
+  src: url("../../build/assets/fonts/lato-lightitalic-webfont.eot");
+  src: url("../../build/assets/fonts/lato-lightitalic-webfont.eot?#iefix") format("embedded-opentype"), url("../../build/assets/fonts/lato-lightitalic-webfont.woff2") format("woff2"), url("../../build/assets/fonts/lato-lightitalic-webfont.woff") format("woff"), url("../../build/assets/fonts/lato-lightitalic-webfont.ttf") format("truetype"), url("../../build/assets/fonts/lato-lightitalic-webfont.svg#latolight_italic") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'latoregular';
+  src: url("../../build/assets/fonts/lato-regular-webfont.eot");
+  src: url("../../build/assets/fonts/lato-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../../build/assets/fonts/lato-regular-webfont.woff2") format("woff2"), url("../../build/assets/fonts/lato-regular-webfont.woff") format("woff"), url("../../build/assets/fonts/lato-regular-webfont.ttf") format("truetype"), url("../../build/assets/fonts/lato-regular-webfont.svg#latoregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'montserratbold';
+  src: url("../../build/assets/fonts/montserrat-bold-webfont.eot");
+  src: url("../../build/assets/fonts/montserrat-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../../build/assets/fonts/montserrat-bold-webfont.woff2") format("woff2"), url("../../build/assets/fonts/montserrat-bold-webfont.woff") format("woff"), url("../../build/assets/fonts/montserrat-bold-webfont.ttf") format("truetype"), url("../../build/assets/fonts/montserrat-bold-webfont.svg#montserratbold") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'montserratregular';
+  src: url("../../build/assets/fonts/montserrat-regular-webfont.eot");
+  src: url("../../build/assets/fonts/montserrat-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../../build/assets/fonts/montserrat-regular-webfont.woff2") format("woff2"), url("../../build/assets/fonts/montserrat-regular-webfont.woff") format("woff"), url("../../build/assets/fonts/montserrat-regular-webfont.ttf") format("truetype"), url("../../build/assets/fonts/montserrat-regular-webfont.svg#montserratregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+#circleG {
+  display: none;
+  width: 82px;
+  margin: auto; }
+
+.circleG {
+  background-color: white;
+  float: left;
+  height: 12px;
+  margin-left: 9px;
+  width: 12px;
+  animation-name: bounce_circleG;
+  -o-animation-name: bounce_circleG;
+  -ms-animation-name: bounce_circleG;
+  -webkit-animation-name: bounce_circleG;
+  -moz-animation-name: bounce_circleG;
+  animation-duration: 2.24s;
+  -o-animation-duration: 2.24s;
+  -ms-animation-duration: 2.24s;
+  -webkit-animation-duration: 2.24s;
+  -moz-animation-duration: 2.24s;
+  animation-iteration-count: infinite;
+  -o-animation-iteration-count: infinite;
+  -ms-animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-direction: normal;
+  -o-animation-direction: normal;
+  -ms-animation-direction: normal;
+  -webkit-animation-direction: normal;
+  -moz-animation-direction: normal;
+  border-radius: 12px;
+  -o-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px; }
+
+#circleG_1 {
+  animation-delay: 0.45s;
+  -o-animation-delay: 0.45s;
+  -ms-animation-delay: 0.45s;
+  -webkit-animation-delay: 0.45s;
+  -moz-animation-delay: 0.45s; }
+
+#circleG_2 {
+  animation-delay: 1.05s;
+  -o-animation-delay: 1.05s;
+  -ms-animation-delay: 1.05s;
+  -webkit-animation-delay: 1.05s;
+  -moz-animation-delay: 1.05s; }
+
+#circleG_3 {
+  animation-delay: 1.35s;
+  -o-animation-delay: 1.35s;
+  -ms-animation-delay: 1.35s;
+  -webkit-animation-delay: 1.35s;
+  -moz-animation-delay: 1.35s; }
+
+@keyframes bounce_circleG {
+  0% { }
+  50% {
+    background-color: #cc0ccc; }
+  100% { } }
+
+@-webkit-keyframes bounce_circleG {
+  0% { }
+  50% {
+    background-color: #cc0ccc; }
+  100% { } }
+
+.home-page .project-info {
+  margin: 1em auto 0;
+  text-align: center;
+  width: auto;
+  max-width: 55%; }
+  .home-page .project-info ion-img {
+    display: inline-block; }
+  .home-page .project-info .content {
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: -5px 5px 6px 0px rgba(0, 0, 0, 0.07);
+    margin-bottom: 2em;
+    margin-top: 1em;
+    padding: 1em; }
+    .home-page .project-info .content p {
+      margin: 0 0 1em;
+      padding: 0; }
+
+.home-page ion-content h1 {
+  text-align: center; }
