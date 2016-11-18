@@ -2,13 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, Content, NavController, ActionSheetController } from 'ionic-angular';
 import { ChatPage } from '../chat/chat';
 import { Mensaje } from '../../directives/mensaje.directive';
+import { MultimediaPipe } from '../../pipes/multimedia.pipe';
 import { Http } from "@angular/http";
 import { NgZone } from "@angular/core";
 import { ioService } from '../../services/io.service'
 
 @Component({
   templateUrl: 'build/pages/home/home.html',
-  providers: [ioService]
+  providers: [ioService],
+  pipes: [MultimediaPipe]
 })
 
 export class HomePage implements OnInit {

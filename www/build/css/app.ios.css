@@ -8922,6 +8922,10 @@ h1, h2, h3, h4, h5, h6 {
       right: 10px;
       -webkit-transform: rotate(130deg) skew(0deg); }
 
+.scroll-inner-content {
+  max-width: 700px;
+  margin: 0 auto; }
+
 .message-container {
   clear: both; }
   .message-container.pendiente {
@@ -8937,9 +8941,13 @@ h1, h2, h3, h4, h5, h6 {
     display: block; }
     .message-container.enviado .chat-bubble span,
     .message-container.enviado .chat-bubble .mensaje_multimedia {
-      display: inline-block; }
+      display: block; }
     .message-container.enviado .chat-bubble #circleG {
       display: none; }
+    .message-container.enviado .chat-bubble span + .mensaje_multimedia {
+      margin-top: 1em; }
+  .message-container .mensaje_multimedia iframe {
+    max-width: 100%; }
 
 ion-content.custom-bg {
   background-color: #f4d03d;

@@ -46,6 +46,11 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+.scroll-inner-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
 .message-container {
 	clear: both;
     &.pendiente {
@@ -69,11 +74,20 @@ h1, h2, h3, h4, h5, h6 {
         .chat-bubble {
             span,
             .mensaje_multimedia {
-                display: inline-block;
+                display: block;
             }
             #circleG {
                 display: none;
             }
+            span + .mensaje_multimedia {
+                margin-top: 1em;
+            }
+        }
+    }
+
+    .mensaje_multimedia {
+        iframe {
+            max-width: 100%;
         }
     }
 }

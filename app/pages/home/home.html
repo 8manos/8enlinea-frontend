@@ -5,32 +5,29 @@
 </ion-header>
 
 <ion-content class="cards-bg custom-bg">
-
-  <div class="project-info">
-    <ion-img src="build/images/logo.grande.png" width="142"></ion-img>
-    <div class="content">
-      <p>Proyecto ganador de la "Beca para el desarrollo de documental interactivo para la web 2016"</p>
-      <div class="logos">
-        Mincultura / Todos por un nuevo país
+  <div class="scroll-inner-content">
+    <div class="project-info">
+      <ion-img src="build/images/logo.grande.png" width="142"></ion-img>
+      <div class="content">
+        <p>Proyecto ganador de la "Beca para el desarrollo de documental interactivo para la web 2016"</p>
+        <div class="logos">
+          Mincultura / Todos por un nuevo país
+        </div>
+      </div>
+    </div>
+    
+    <div *ngFor="let message of messages" class="message-container" [ngClass]="message.plantilla.estado">
+      <div class="chat-bubble" [ngClass]="message.plantilla.autor.username">
+        <span *ngIf="message.plantilla.mensaje != ' '">{{ message.plantilla.mensaje }}</span>
+        <div class="mensaje_multimedia" *ngIf="message.plantilla.multimedia" [innerHTML]="message.plantilla.multimedia | multimedia"></div>
+        <div id="circleG">
+          <div id="circleG_1" class="circleG"></div>
+          <div id="circleG_2" class="circleG"></div>
+          <div id="circleG_3" class="circleG"></div>
+        </div>
       </div>
     </div>
   </div>
-  
-  <div *ngFor="let message of messages" class="message-container" [ngClass]="message.plantilla.estado">
-    <div class="chat-bubble" [ngClass]="message.plantilla.autor.username">
-      <span>{{ message.plantilla.mensaje }}</span>
-      <div class="mensaje_multimedia" *ngIf="message.plantilla.multimedia">
-      {{ message.plantilla.multimedia }}
-      </div>
-      <div id="circleG">
-        <div id="circleG_1" class="circleG"></div>
-        <div id="circleG_2" class="circleG"></div>
-        <div id="circleG_3" class="circleG"></div>
-      </div>
-    </div>
-
-  </div>
-
 </ion-content>
 <ion-footer>
   <ion-item >
