@@ -142,6 +142,8 @@ export class HomePage implements OnInit {
     }else if( accion.tipo == "activa_mensaje" ){
       console.log( "Activando mensaje: ", accion.parametro );
       this._ioService.sendResponse( accion.parametro );
+    }else if( accion.tipo == "cambia_css"){
+      console.log( "Cambiando css: ", [ accion.parametro , accion.valor ] );
     }else{
       console.log( "Acción pendiente de implementación: ", accion.tipo );
     }
