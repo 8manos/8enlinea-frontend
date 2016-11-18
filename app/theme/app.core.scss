@@ -1,6 +1,16 @@
 // http://ionicframework.com/docs/v2/theming/
 
+body{
+    font-family: 'lato';
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'montserrat';
+    font-weight: bold;
+}
+
 .chat-bubble {
+    background-color: #fff;
     border-radius: 5px;
     box-shadow: -5px 5px 6px 0px rgba(0,0,0,0.07);
     display: inline-block;
@@ -8,32 +18,28 @@
     position: relative;
     margin: 10px;
     max-width: 80%;
+    float: left;
+    margin-left: 55px;
     &::before {
+        background-color: #fff;
         content: "\00a0";
         display: block;
         height: 16px;
         width: 9px;
         position: absolute;
         bottom: -6px;
+        left: 10px;
+        bottom: -5px;
+        -webkit-transform: rotate(45deg) skew(0deg);
     }
-    &.left {
-        background-color: #fff;
-        float: left;
-        margin-left: 55px;
-        &::before {
-            background-color: #fff;
-            left: 10px;
-            bottom: -5px;
-            -webkit-transform: rotate(45deg) skew(0deg);
-        }
-    }
-    &.right {
-        background-color: #158ffe;
+    &.right , &.me {
+        background-color: #5eb4f6;
         color: #fff;
         float: right;
         margin-right: 55px;
         &::before {
-            background-color: #158ffe;
+            background-color: #5eb4f6;
+            left: auto;
             right: 10px;
             -webkit-transform: rotate(130deg) skew(0deg);
         }

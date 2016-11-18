@@ -38,8 +38,9 @@ var isRelease = argv.indexOf('--release') > -1;
 
 gulp.task('watch', ['clean'], function(done){
   runSequence(
-    ['sass', 'html', 'fonts', 'scripts', 'images'],
+    ['sass', 'html', 'fonts', 'scripts', 'images', 'custom-fonts'],
     function(){
+      gulpWatch('app/assets/fonts/*', function(){ gulp.start('custom-fonts'); });
       gulpWatch('app/assets/images/*', function(){ gulp.start('images'); });
       gulpWatch('app/**/*.scss', function(){ gulp.start('sass'); });
       gulpWatch('app/**/*.html', function(){ gulp.start('html'); });
@@ -50,7 +51,7 @@ gulp.task('watch', ['clean'], function(done){
 
 gulp.task('build', ['clean'], function(done){
   runSequence(
-    ['sass', 'html', 'fonts', 'scripts', 'images'],
+    ['sass', 'html', 'fonts', 'scripts', 'images', 'custom-fonts'],
     function(){
       buildBrowserify({
         minify: isRelease,
@@ -68,6 +69,11 @@ gulp.task('build', ['clean'], function(done){
 gulp.task('images', function() {
     return gulp.src(['app/assets/images/*'])
         .pipe(gulp.dest('www/build/images'));
+});
+
+gulp.task('custom-fonts', function() {
+    return gulp.src(['app/assets/fonts/*'])
+        .pipe(gulp.dest('www/build/fonts'));
 });
 
 gulp.task('sass', buildSass);

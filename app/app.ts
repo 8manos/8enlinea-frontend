@@ -12,7 +12,7 @@ export class MyApp {
   public rootPage: any;
   public conversaciones:Array<Object>;
 
-  constructor(private platform: Platform) {
+  constructor(private platform: Platform ) {
     this.rootPage = TabsPage;
     this.conversaciones = [];
 
@@ -24,4 +24,4 @@ export class MyApp {
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap( MyApp );

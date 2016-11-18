@@ -17,8 +17,8 @@
   </div>
   
   <div *ngFor="let message of messages" class="message-container">
-    <div class="chat-bubble left">
-      {{message}}
+    <div class="chat-bubble" [ngClass]="message.plantilla.estado + ' ' + message.plantilla.autor.username">
+      {{ message.plantilla.mensaje }}
 
       <div id="circleG">
         <div id="circleG_1" class="circleG"></div>

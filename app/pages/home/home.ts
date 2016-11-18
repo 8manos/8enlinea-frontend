@@ -4,9 +4,6 @@ import { ChatPage } from '../chat/chat';
 import { Http } from "@angular/http";
 import { NgZone } from "@angular/core";
 import { ioService } from '../../services/io.service'
-declare var socketIOClientStatic:any;
-declare var SailsIOClient:any;
-declare var io:any;
 
 @Component({
   templateUrl: 'build/pages/home/home.html',
@@ -47,7 +44,14 @@ export class HomePage implements OnInit {
 
         this.zone = new NgZone({ enableLongStackTrace: false });
 
-        this.messages.push( "¡Hola! Bienvenido a 8enlinea." );
+        this.messages.push( { plantilla: { 
+                                mensaje: "¡Hola! Bienvenido a 8enlinea." ,
+                                autor: {
+                                  username: '8enlinea'
+                                }
+                              } 
+                            } 
+                           );
 
   }
 
@@ -71,7 +75,7 @@ export class HomePage implements OnInit {
 
   displayMessage( message ){
     this.zone.run(() => {
-      this.messages.push( message["plantilla"].mensaje );
+      this.messages.push( message );
       this.buttons = [
          {
            text: 'Cancelar',
@@ -126,7 +130,13 @@ export class HomePage implements OnInit {
 
   enviarRespuesta( respuesta ){
     console.log('Enviando respuesta desde home.ts: ', respuesta );
-    this.messages.push( respuesta.texto );
+    this.messages.push( { plantilla: { 
+                            mensaje: respuesta.texto,
+                            autor: {
+                               username: "me"
+                            } 
+                          } 
+                      } );
     this._ioService.sendResponse( respuesta.destino );
   }
 }
