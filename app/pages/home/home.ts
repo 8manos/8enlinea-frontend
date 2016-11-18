@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, Content, NavController, ActionSheetController } from 'ionic-angular';
 import { ChatPage } from '../chat/chat';
+import { Mensaje } from '../../directives/mensaje.directive';
 import { Http } from "@angular/http";
 import { NgZone } from "@angular/core";
 import { ioService } from '../../services/io.service'
@@ -12,7 +13,7 @@ import { ioService } from '../../services/io.service'
 
 export class HomePage implements OnInit {
   
-  public messages:Array<Object>;
+  public messages:Array<any>;
   public buttons:Array<Object>;
   public socketHost:String;
   @ViewChild(Content) content: Content;
@@ -75,37 +76,56 @@ export class HomePage implements OnInit {
 
   displayMessage( message ){
     this.zone.run(() => {
-      this.messages.push( message );
-      this.buttons = [
-         {
-           text: 'Cancelar',
-           role: 'cancel',
-           handler: () => {
-             console.log('Cancel clicked');
-           }
-         }
-       ];
-      for (var i = 0; i < message["plantilla"].respuestas.length; ++i) {
-        let respuesta = message["plantilla"].respuestas[i];
-        this.buttons.push({
-          text: message["plantilla"].respuestas[i].texto,
-          handler: () => {
-            this.enviarRespuesta( respuesta );
-          }
-        });
-      }
-      console.log('Buttons updated', this.buttons );
-      setTimeout(() => {
-        this.content.scrollToBottom(300);
-      });
+      message.plantilla.estado = 'pendiente';
+      let current_message:string = String( this.messages.length );
 
-      console.log( 'Running actions in home');
-      if( message["plantilla"].acciones.length > 0 ){
-        for (var i = 0; i < message["plantilla"].acciones.length; ++i) {
-          console.log( "Intentando ejectutar acción: ", message["plantilla"].acciones[i] );
-          this.accion( message["plantilla"].acciones[i] );
-        }
-      }
+      // Simula espera para respuesta
+      setTimeout(() => {
+        console.log( "Current message index: ", current_message );
+        message.plantilla.estado = 'escribiendo';
+        this.messages.push( message );
+        this.buttons = [
+           {
+             text: 'Cancelar',
+             role: 'cancel',
+             handler: () => {
+               console.log('Cancel clicked');
+             }
+           }
+         ];
+
+        setTimeout(() => {
+          this.content.scrollToBottom(300);
+        }, 100 );
+
+        // Simula tiempo escribiendo  
+        setTimeout(() => {
+          console.log( "Setting estado enviado", this.messages[ current_message ] );
+          this.messages[ current_message ].plantilla.estado = 'enviado';
+          for (var i = 0; i < message["plantilla"].respuestas.length; ++i) {
+            let respuesta = message["plantilla"].respuestas[i];
+            this.buttons.push({
+              text: message["plantilla"].respuestas[i].texto,
+              handler: () => {
+                this.enviarRespuesta( respuesta );
+              }
+            });
+          }
+
+          console.log('Buttons updated', this.buttons );
+          setTimeout(() => {
+            this.content.scrollToBottom(300);
+          }, 100 );
+
+          console.log( 'Running actions in home');
+          if( message["plantilla"].acciones.length > 0 ){
+            for (var i = 0; i < message["plantilla"].acciones.length; ++i) {
+              console.log( "Intentando ejectutar acción: ", message["plantilla"].acciones[i] );
+              this.accion( message["plantilla"].acciones[i] );
+            }
+          }
+        }, message.plantilla.tiempo_escribiendo * 1000 );
+      }, message.plantilla.tiempo_respuesta * 1000 );
     });
   }
 
@@ -132,11 +152,16 @@ export class HomePage implements OnInit {
     console.log('Enviando respuesta desde home.ts: ', respuesta );
     this.messages.push( { plantilla: { 
                             mensaje: respuesta.texto,
+                            tiempo_respuesta: 0,
+                            tiempo_escribiendo: 0,
                             autor: {
                                username: "me"
                             } 
                           } 
                       } );
+    setTimeout(() => {
+      this.content.scrollToBottom(300);
+    }, 100 );
     this._ioService.sendResponse( respuesta.destino );
   }
 }

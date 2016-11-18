@@ -16,10 +16,12 @@
     </div>
   </div>
   
-  <div *ngFor="let message of messages" class="message-container">
-    <div class="chat-bubble" [ngClass]="message.plantilla.estado + ' ' + message.plantilla.autor.username">
-      {{ message.plantilla.mensaje }}
-
+  <div *ngFor="let message of messages" class="message-container" [ngClass]="message.plantilla.estado">
+    <div class="chat-bubble" [ngClass]="message.plantilla.autor.username">
+      <span>{{ message.plantilla.mensaje }}</span>
+      <div class="mensaje_multimedia" *ngIf="message.plantilla.multimedia">
+      {{ message.plantilla.multimedia }}
+      </div>
       <div id="circleG">
         <div id="circleG_1" class="circleG"></div>
         <div id="circleG_2" class="circleG"></div>

@@ -48,6 +48,34 @@ h1, h2, h3, h4, h5, h6 {
 
 .message-container {
 	clear: both;
+    &.pendiente {
+        display: none;
+    }
+
+    &.escribiendo {
+        display:block;
+        .chat-bubble {
+            span, 
+            .mensaje_multimedia {
+                display: none;
+            }
+            #circleG {
+                display: inline-block;
+            }
+        }
+    }
+    &.enviado {
+        display:block;
+        .chat-bubble {
+            span,
+            .mensaje_multimedia {
+                display: inline-block;
+            }
+            #circleG {
+                display: none;
+            }
+        }
+    }
 }
 
 ion-content.custom-bg {
