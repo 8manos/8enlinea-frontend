@@ -99,6 +99,7 @@ ion-content.custom-bg {
     background-blend-mode: normal, multiply;
     background-size: auto, cover;
     background-position: 0 0, 50% 0;
+    transition: 0.5s all;
 }
 
 // App Shared Imports

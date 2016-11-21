@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, Content, NavController, ActionSheetController } from 'ionic-angular';
 import { ChatPage } from '../chat/chat';
 import { Mensaje } from '../../directives/mensaje.directive';
+import { KeysPipe } from '../../pipes/keys.pipe';
 import { MultimediaPipe } from '../../pipes/multimedia.pipe';
 import { Http } from "@angular/http";
 import { NgZone } from "@angular/core";
@@ -10,12 +11,13 @@ import { ioService } from '../../services/io.service'
 @Component({
   templateUrl: 'build/pages/home/home.html',
   providers: [ioService],
-  pipes: [MultimediaPipe]
+  pipes: [MultimediaPipe, KeysPipe]
 })
 
 export class HomePage implements OnInit {
   
   public messages:Array<any>;
+  public styles:Array<any>;
   public buttons:Array<Object>;
   public socketHost:String;
   @ViewChild(Content) content: Content;
@@ -33,6 +35,7 @@ export class HomePage implements OnInit {
         this._ioService.getIntro();
 
         this.messages = [];
+        this.styles = new Array();
 
         this.buttons = [
          {
@@ -144,6 +147,7 @@ export class HomePage implements OnInit {
       this._ioService.sendResponse( accion.parametro );
     }else if( accion.tipo == "cambia_css"){
       console.log( "Cambiando css: ", [ accion.parametro , accion.valor ] );
+      this.styles[ accion.parametro ] = accion.valor;
     }else{
       console.log( "Acción pendiente de implementación: ", accion.tipo );
     }
