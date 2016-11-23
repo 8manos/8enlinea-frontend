@@ -18,6 +18,7 @@ export class TabsPage {
     // this tells the tabs component which Pages
     // should be each tab's root Page
     this.tab1Root = HomePage;
+    this.tab2Root = AboutPage;
     this.tab4Root = ChatPage;
     this.tab3Root = ContactPage;
   }
