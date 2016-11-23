@@ -6,7 +6,8 @@ import { KeysPipe } from '../../pipes/keys.pipe';
 import { MultimediaPipe } from '../../pipes/multimedia.pipe';
 import { Http } from "@angular/http";
 import { NgZone } from "@angular/core";
-import { ioService } from '../../services/io.service'
+import { ioService } from '../../services/io.service';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   templateUrl: 'build/pages/home/home.html',
@@ -16,6 +17,7 @@ import { ioService } from '../../services/io.service'
 
 export class HomePage implements OnInit {
   
+  public tab1Root: any;
   public messages:Array<any>;
   public styles:Array<any>;
   public buttons:Array<Object>;
@@ -32,6 +34,7 @@ export class HomePage implements OnInit {
     public http: Http
   ) {
   
+        this.tab1Root = this;
         this._ioService.getIntro();
 
         this.messages = [];
@@ -139,7 +142,7 @@ export class HomePage implements OnInit {
       console.log( "Iniciando conversacion: ", accion.parametro );
       if( accion.parametro == 'grupal' ){      
         setTimeout(() => {
-          this.navCtrl.setRoot( ChatPage );
+          this.navCtrl.setRoot( TabsPage );
         }, 4000);
       }
     }else if( accion.tipo == "activa_mensaje" ){
