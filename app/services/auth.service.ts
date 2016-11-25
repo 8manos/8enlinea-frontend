@@ -84,6 +84,11 @@ export class AuthService {
     }
     
     logout() {
-        this.destroyUserCredentials();
+        this.http.get( this.host_url + '/logout').subscribe(data => {
+            if(data.json().success)
+                resolve(data.json());
+            else
+                resolve(false);
+        });
     }
 }

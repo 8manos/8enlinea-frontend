@@ -11,7 +11,6 @@ import { TabsPage } from '../tabs/tabs';
 
 @Component({
   templateUrl: 'build/pages/home/home.html',
-  providers: [ioService],
   pipes: [MultimediaPipe, KeysPipe]
 })
 

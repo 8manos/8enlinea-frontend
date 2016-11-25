@@ -5,8 +5,7 @@ import { Http } from "@angular/http";
 import { ioService } from '../../services/io.service';
 
 @Component({
-  templateUrl: 'build/pages/conversacion/conversacion.html',
-  providers: [ioService]
+  templateUrl: 'build/pages/conversacion/conversacion.html'
 })
 
 export class ConversacionPage implements OnInit {

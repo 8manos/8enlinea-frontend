@@ -6,8 +6,7 @@ import { NgZone } from "@angular/core";
 import { ioService } from '../../services/io.service';
 
 @Component({
-  templateUrl: 'build/pages/chat/chat.html',
-  providers: [ioService]
+  templateUrl: 'build/pages/chat/chat.html'
 })
 
 export class ChatPage implements OnInit {

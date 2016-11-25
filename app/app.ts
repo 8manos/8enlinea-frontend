@@ -4,6 +4,7 @@ import { StatusBar } from 'ionic-native';
 import { HomePage } from './pages/home/home';
 import { TabsPage } from './pages/tabs/tabs';
 import { MultimediaPipe } from './pipes/multimedia.pipe';
+import { ioService } from './services/io.service';
 
 @Component({
   templateUrl: 'build/app.html',
@@ -15,7 +16,7 @@ export class MyApp {
   public rootPage: any;
   public conversaciones:Array<Object>;
 
-  constructor(private platform: Platform ) {
+  constructor(private platform: Platform) {
     this.rootPage = HomePage;
     this.conversaciones = [];
 
@@ -27,4 +28,4 @@ export class MyApp {
   }
 }
 
-ionicBootstrap( MyApp );
+ionicBootstrap( MyApp, [ioService] );
