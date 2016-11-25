@@ -3,9 +3,9 @@ export class Conversacion {
 		id:string,
 		createdAt:string,
 		updatedAt:string,
-		mensajes?: Array<Object>,
-		alternativas?: Array<Object>,
-		de_usuario?: Array<Object>,
-		usuarios?: Array<Object>
+		mensajes?: Array<any>,
+		alternativas?: Array<any>,
+		de_usuario?: Array<any>,
+		usuarios?: Array<any>
 	) {  }
 }

@@ -14,6 +14,8 @@ export class ioService {
     private _ioMessage$: Subject<{}>;
     private _conversaciones: BehaviorSubject<Array<Object>> = new BehaviorSubject(Array([]));
     public conversaciones: Observable<Array<Object>> = this._conversaciones.asObservable();
+    private _conversacion: BehaviorSubject<Array<Object>> = new BehaviorSubject(Array([]));
+    public conversacion: Observable<Array<Object>> = this._conversacion.asObservable();
     private socket;
     public socketHost:String;
     public connected;
@@ -66,6 +68,24 @@ export class ioService {
         });
     }
 
+    subscribeToConversacion( id ) {
+        this.socket.get('/conversacion/subscribe', { 'id': id }, (response) => {    
+          console.log('Subscription response: ', response );    
+          this._ioMessage$.next({
+              message: response
+          });
+        });
+    }
+
+    unsubscribeToConversacion( id ) {
+        this.socket.get('/conversacion/unsubscribe', { 'id': id }, (response) => {    
+          console.log('Unsubscription response: ', response );        
+          this._ioMessage$.next({
+              message: response
+          });
+        });
+    }
+
     getIntro(){
       this.socket.get('/intro', null, function (resData) {
         console.log( 'intro: ', resData ); 
@@ -77,6 +97,14 @@ export class ioService {
       this.socket.get('/user/conversaciones', null, (resData) => {
         console.log( 'Conversaciones: ', resData ); 
         this._conversaciones.next( resData );
+      });
+    }
+
+    getConversacion( id ) {
+      console.log( "Getting conversacion "+ id +" from io service");
+      this.socket.get('/conversacion', {'id': id}, (resData) => {
+        console.log( 'Conversacion: ', resData ); 
+        this._conversacion.next( resData.data.conversacion );
       });
     }
 

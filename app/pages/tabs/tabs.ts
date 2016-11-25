@@ -12,6 +12,7 @@ import { SettingsPage } from '../settings/settings';
 
 export class TabsPage {
 
+  public test:string = "test";
   public tab1Root: any;
   public tab2Root: any;
   public tab3Root: any;
@@ -28,5 +29,6 @@ export class TabsPage {
     this.tab3Root = ContactPage;
     this.tab4Root = ChatPage;
     this.tab5Root = SettingsPage;
+    this.test = 'test';
   }
 }
