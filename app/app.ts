@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
+import { Platform, ionicBootstrap, Nav, Page } from 'ionic-angular';
+import { InAppBrowser } from 'ionic-native';
 import { StatusBar } from 'ionic-native';
 import { HomePage } from './pages/home/home';
 import { TabsPage } from './pages/tabs/tabs';
@@ -24,6 +25,7 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
+      InAppBrowser.open('https://google.com', '_system', "location=no,clearsessioncache=yes,clearcache=yes" );
     });
   }
 }
