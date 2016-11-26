@@ -18,7 +18,7 @@ export class MultimediaPipe implements PipeTransform {
 		if (match && match[2].length == 11) { // Iframe
 			return this.sanitizer.bypassSecurityTrustHtml('<iframe width="560" height="315" src="https://www.youtube.com/embed/'+match[2]+'?rel=0" frameborder="0" allowfullscreen></iframe>');
 		} else {
-		    return "Multimedia desconocida: " + value;
+		    return "<!-- Multimedia desconocida: --><a href='" + value + "' target='_blank'>" + value + "</a>";
 		}
   	}
   }
