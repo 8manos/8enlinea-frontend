@@ -102,6 +102,31 @@ ion-content.custom-bg {
     transition: 0.5s all;
 }
 
+ion-footer .item-input {
+    opacity: 0.85;
+}
+
+.badge-danger {
+    background-color: #e6593f;
+}
+
+.tab-badge {
+    top: 10%;
+}
+
+.tab-button,
+.tab-button[aria-selected=true] {
+    padding-top: 12px;
+}
+
+.tab-button[aria-selected=true] {
+    color: #515151;
+}
+
+ion-tabbar.show-tabbar {
+    opacity: 0.9;
+}
+
 // App Shared Imports
 // --------------------------------------------------
 // These are the imports which make up the design of this app.

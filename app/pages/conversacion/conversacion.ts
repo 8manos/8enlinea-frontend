@@ -11,6 +11,7 @@ import { DetallesPage } from '../detalles/detalles';
 
 export class ConversacionPage implements OnInit {
   public conversacion:any;
+  public conversaciones:any;
   public conversacion_requested:any;
   private _ioServiceMessages: Array<{}>;
   private zone;
@@ -26,6 +27,8 @@ export class ConversacionPage implements OnInit {
   	}
 
   ngOnInit(): void {
+      this._ioService.getConversaciones();
+
       this._ioService.conversacion.subscribe(
         resData => {
           console.log( "Conversacion Subscribed: ", resData );
@@ -38,6 +41,13 @@ export class ConversacionPage implements OnInit {
           .subscribe( message => {
               console.log( "iOservice message in conversacion: ", message );
           });
+
+      this._ioService.conversaciones.subscribe(
+        resData => {
+          console.log( "ResData Subscribed: ", resData );
+          this.conversaciones = resData;
+        }
+      );
   }
 
   showConversacion( conversacion ){
@@ -48,6 +58,12 @@ export class ConversacionPage implements OnInit {
     });
   }
 
+  load_conversacion( conversacion ){
+    console.log( 'Loading conversacion: ', conversacion );
+    this.navCtrl.push( ConversacionPage, { conversacion: conversacion } );
+    this.menu.close();
+  }
+
   subscribe( id ) {
     console.log("Viendo conversación: "+ id );
     this._ioService.subscribeToConversacion( id );
@@ -56,6 +72,7 @@ export class ConversacionPage implements OnInit {
   ionViewDidEnter() {
     console.log("Retomando conversación: "+ this.conversacion.id );
     this._ioService.subscribeToConversacion( this.conversacion.id );
+    this.menu.open();
   }
 
   ionViewDidLeave() {

@@ -7,7 +7,7 @@
 	</ion-navbar>
 </ion-header>
 
-<ion-menu [content]="content" id="menu_conversaciones">
+<ion-menu [content]="content" id="menu_conversaciones" persistent="true">
 
   <ion-toolbar>
     <ion-title>Conversaciones</ion-title>
@@ -21,7 +21,7 @@
 	      </ion-avatar>
 	      <ion-label>Conversación: {{conversacion.id}}</ion-label>
 	      <ion-note item-right>{{conversacion.updatedAt}}</ion-note>
-	      <ion-badge item-right>10</ion-badge>
+	      <ion-badge item-right color="danger">10</ion-badge>
 	    </ion-item>
     </ion-list>
   </ion-content>
@@ -31,5 +31,5 @@
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
 <ion-content padding>
-	<h1>Contenido</h1>
+	<h1>¡Hola! Tienes {{conversaciones.length}} conversaciones activas.</h1>
 </ion-content>

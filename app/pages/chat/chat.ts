@@ -39,6 +39,7 @@ export class ChatPage implements OnInit {
   load_conversacion( conversacion ){
     console.log( 'Loading conversacion: ', conversacion );
     this.navCtrl.push( ConversacionPage, { conversacion: conversacion } );
+    this.menu.close();
   }
 
 	ionViewDidEnter() {
