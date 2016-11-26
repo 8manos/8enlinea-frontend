@@ -8929,7 +8929,7 @@ h1, h2, h3, h4, h5, h6 {
 .message-container {
   clear: both; }
   .message-container.pendiente {
-    display: none; }
+    display: block; }
   .message-container.escribiendo {
     display: block; }
     .message-container.escribiendo .chat-bubble span,

@@ -34,7 +34,7 @@ export class ioService {
     }
 
     socket_url(){
-      // return "//localhost:1337/";
+      // return "http://localhost:1337/";
       return "http://backend.ochoenlinea.com/";
     }
     connect( socket_host, callback:Function ) {
@@ -59,6 +59,10 @@ export class ioService {
         this.socket.on('message', (data) => {
             this._ioMessage$.next(data);
         }); 
+
+        this.socket.on('nuevo_mensaje', (data) => {
+            this._ioMessage$.next(data);
+        });
     }
 
     subscribeToSails() {
@@ -115,6 +119,17 @@ export class ioService {
       }, ( resData ) => {
         console.log("Response data: ", resData );
         this._ioMessage$.next(resData);
+      });
+    }
+
+    agregarMensaje( plantilla, conversacion ) {
+      console.log( "Agregando mensaje from chat service en conversacion: " + conversacion + ", desde plantilla: ", plantilla );
+      this.socket.get('/conversacion/agregar', {
+          conversacion: conversacion,
+          plantilla: plantilla
+      }, ( resData ) => {
+        console.log("Response data agregando mensaje: ", resData );
+        // this._ioMessage$.next(resData);
       });
     }
 

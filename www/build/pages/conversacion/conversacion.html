@@ -1,48 +1,28 @@
-<!--
-  Generated template for the ConversacionPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-  	<button menuToggle="menu_conversaciones" side="right">
-  		<ion-icon name="chatboxes"></ion-icon>
-  	</button>
-    <ion-title><a href="/"><img src="build/images/logo.barra.superior.png"></a> Conversacion {{conversacion.id}} </ion-title> 
+
+    <ion-title><a href="/"><img src="build/images/logo.barra.superior.png"></a>  {{conversacion.nombre}} </ion-title> 
     <ion-buttons end>
       <button ion-button clear item-right side="right" (click)="verDetalles()">Detalles</button>
     </ion-buttons>
   </ion-navbar>
 
 </ion-header>
-
-<ion-menu [content]="content" id="menu_conversaciones" persistent="true">
-
-  <ion-toolbar>
-    <ion-title>Conversaciones</ion-title>
-  </ion-toolbar>
-
-  <ion-content>
-    <ion-list>
-      <ion-item *ngFor="let conversacion of conversaciones" (click)="load_conversacion(conversacion)">
-        <ion-avatar item-left>
-          <img src="http://placehold.it/60x60">
-        </ion-avatar>
-        <ion-label>Conversación: {{conversacion.id}}</ion-label>
-        <ion-note item-right>{{conversacion.updatedAt}}</ion-note>
-        <ion-badge item-right>10</ion-badge>
-      </ion-item>
-    </ion-list>
-  </ion-content>
-
-</ion-menu>
-
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
-
-<ion-content padding class="custom-bg">
-{{conversacion.updatedAt}}
+<ion-content class="cards-bg custom-bg">
+  <div class="scroll-inner-content">
+    <div *ngFor="let message of conversacion.mensajes" class="message-container" [ngClass]="message.estado">
+      <div class="chat-bubble" [ngClass]="'autor-'+message.autor">
+        <span *ngIf="message.mensaje != ' '">{{ message.mensaje }}</span>
+        <div class="mensaje_multimedia" *ngIf="message.multimedia" [innerHTML]="message.multimedia | multimedia"></div>
+        <div id="circleG">
+          <div id="circleG_1" class="circleG"></div>
+          <div id="circleG_2" class="circleG"></div>
+          <div id="circleG_3" class="circleG"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
 
 <ion-footer>

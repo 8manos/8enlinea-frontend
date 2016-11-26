@@ -141,11 +141,9 @@ export class HomePage implements OnInit {
   accion( accion ){
     if( accion.tipo == "inicia_conversacion" ){
       console.log( "Iniciando conversacion: ", accion.parametro );
-      if( accion.parametro == 'grupal' ){      
-        setTimeout(() => {
-          this.navCtrl.setRoot( TabsPage );
-        }, 4000);
-      }
+      setTimeout(() => {
+        this.navCtrl.setRoot( TabsPage );
+      }, 4000);
     }else if( accion.tipo == "activa_mensaje" ){
       console.log( "Activando mensaje: ", accion.parametro );
       this._ioService.sendResponse( accion.parametro );
