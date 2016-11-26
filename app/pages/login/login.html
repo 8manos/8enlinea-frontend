@@ -1,0 +1,36 @@
+<ion-content padding class="login">
+	<ion-title>Iniciar sesión con tus redes</ion-title>
+	<div padding>
+	  <ion-segment>
+	    <ion-segment-button (click)="auth('google')">
+	      Google
+	    </ion-segment-button>
+	    <ion-segment-button (click)="auth('twitter')">
+	      Twitter
+	    </ion-segment-button>
+	    <ion-segment-button>
+	      Facebook
+	    </ion-segment-button>
+	  </ion-segment>
+	</div>
+
+	<h6 padding>O si tienes una clave:</h6>
+
+	<ion-list>
+
+		<ion-item>
+			<ion-label>Username</ion-label>
+			<ion-input type="text"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label>Password</ion-label>
+			<ion-input type="password"></ion-input>
+		</ion-item>
+
+	</ion-list>
+
+	<div padding>
+	  <button block>Entrar</button>
+	</div>
+</ion-content>

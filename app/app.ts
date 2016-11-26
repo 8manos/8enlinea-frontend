@@ -7,6 +7,8 @@ import { TabsPage } from './pages/tabs/tabs';
 import { MultimediaPipe } from './pipes/multimedia.pipe';
 import { ioService } from './services/io.service';
 
+declare var window: any;
+
 @Component({
   templateUrl: 'build/app.html',
   pipes: [ MultimediaPipe ]
@@ -21,11 +23,18 @@ export class MyApp {
     this.rootPage = HomePage;
     this.conversaciones = [];
 
+
     platform.ready().then(() => {
+      if ( this.platform.is( 'cordova' ) ){
+        console.log("Is cordova");
+        window.open = (url, target?, opts?) => InAppBrowser.open(url, target, opts);
+      }else{
+        console.log("Is not cordova");
+      }
+
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
-      InAppBrowser.open('https://google.com', '_system', "location=no,clearsessioncache=yes,clearcache=yes" );
     });
   }
 }

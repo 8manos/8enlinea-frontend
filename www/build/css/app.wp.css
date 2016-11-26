@@ -9848,3 +9848,6 @@ ion-content.custom-bg {
 
 .home-page ion-content h1 {
   text-align: center; }
+
+.login h6 {
+  font-weight: normal; }

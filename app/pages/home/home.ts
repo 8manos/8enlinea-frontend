@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController, Content, NavController, ActionSheetController } from 'ionic-angular';
+import { AlertController, Content, NavController, ActionSheetController, ModalController } from 'ionic-angular';
 import { ChatPage } from '../chat/chat';
 import { Mensaje } from '../../directives/mensaje.directive';
 import { KeysPipe } from '../../pipes/keys.pipe';
@@ -8,6 +8,7 @@ import { Http } from "@angular/http";
 import { NgZone } from "@angular/core";
 import { ioService } from '../../services/io.service';
 import { TabsPage } from '../tabs/tabs';
+import { LoginPage } from '../login/login';
 
 @Component({
   templateUrl: 'build/pages/home/home.html',
@@ -30,7 +31,8 @@ export class HomePage implements OnInit {
     public actionSheetCtrl: ActionSheetController, 
     public navCtrl: NavController, 
     public alertCtrl: AlertController, 
-    public http: Http
+    public http: Http,
+    public modalCtrl: ModalController
   ) {
   
         this.tab1Root = this;
@@ -150,9 +152,13 @@ export class HomePage implements OnInit {
     }else if( accion.tipo == "cambia_css"){
       console.log( "Cambiando css: ", [ accion.parametro , accion.valor ] );
       this.styles[ accion.parametro ] = accion.valor;
+    }else if( accion.tipo == "login" ){
+      console.log( "Iniciando login desde accion" );
+      this.presentModal();
     }else{
       console.log( "Acción pendiente de implementación: ", accion.tipo );
     }
+
     setTimeout(() => {
       this.content.scrollToBottom(300);
     });
@@ -173,5 +179,10 @@ export class HomePage implements OnInit {
       this.content.scrollToBottom(300);
     }, 100 );
     this._ioService.sendResponse( respuesta.destino );
+  }
+
+  presentModal() {
+    let modal = this.modalCtrl.create(LoginPage);
+    modal.present();
   }
 }

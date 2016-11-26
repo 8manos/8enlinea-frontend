@@ -15,21 +15,6 @@ export class AuthService {
         this.host_url = "http://ochoenlinea-backend.herokuapp.com";
     }
     
-    storeUserCredentials(token) {
-        window.localStorage.setItem('raja', token);
-        this.useCredentials(token);    
-    }
-    
-    useCredentials(token) {
-        this.isLoggedin = true;
-        this.AuthToken = token;
-    }
-    
-    loadUserCredentials() {
-        var token = window.localStorage.getItem('raja');
-        this.useCredentials(token);
-    }
-    
     destroyUserCredentials() {
         this.isLoggedin = false;
         this.AuthToken = null;
