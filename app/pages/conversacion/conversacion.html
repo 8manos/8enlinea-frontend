@@ -7,18 +7,21 @@
 <ion-header>
 
   <ion-navbar>
-	<button menuToggle="menu_conversaciones" side="right">
-		<ion-icon name="chatboxes"></ion-icon>
-	</button>
-    <ion-title><a href="/"><img src="build/images/logo.barra.superior.png"></a> Conversacion {{conversacion.id}}</ion-title> 
+  	<button menuToggle="menu_conversaciones" side="right">
+  		<ion-icon name="chatboxes"></ion-icon>
+  	</button>
+    <ion-title><a href="/"><img src="build/images/logo.barra.superior.png"></a> Conversacion {{conversacion.id}} </ion-title> 
+    <ion-buttons end>
+      <button ion-button clear item-right side="right" (click)="verDetalles()">Detalles</button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
-<ion-content padding>
-Cargando... {{conversacion.updatedAt}}
+<ion-content padding class="custom-bg">
+{{conversacion.updatedAt}}
 </ion-content>
 
 <ion-footer>

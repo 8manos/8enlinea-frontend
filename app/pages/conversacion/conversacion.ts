@@ -3,6 +3,7 @@ import { Nav, NavController, NavParams,  MenuController } from 'ionic-angular';
 import { Conversacion } from '../../models/Conversacion';
 import { Http } from "@angular/http";
 import { ioService } from '../../services/io.service';
+import { DetallesPage } from '../detalles/detalles';
 
 @Component({
   templateUrl: 'build/pages/conversacion/conversacion.html'
@@ -42,19 +43,29 @@ export class ConversacionPage implements OnInit {
   showConversacion( conversacion ){
     this.zone.run(() => {
       this.conversacion = conversacion;
-      console.log('Scope conversacion: ', this.conversacion );
+      console.log('Scope conversación: ', this.conversacion );
       this.subscribe( this.conversacion.id );
     });
   }
 
   subscribe( id ) {
-    console.log("Viendo conversacion: "+ id );
+    console.log("Viendo conversación: "+ id );
     this._ioService.subscribeToConversacion( id );
   }
 
+  ionViewDidEnter() {
+    console.log("Retomando conversación: "+ this.conversacion.id );
+    this._ioService.subscribeToConversacion( this.conversacion.id );
+  }
+
   ionViewDidLeave() {
-    console.log("Abandonando conversacion: "+ this.conversacion.id );
+    console.log("Abandonando conversación: "+ this.conversacion.id );
     this._ioService.unsubscribeToConversacion( this.conversacion.id );
+  }
+
+  verDetalles() {
+    console.log("Cargando detalles de conversación: ");
+    this.navCtrl.push( DetallesPage, { conversacion: this.conversacion } );
   }
 
 }

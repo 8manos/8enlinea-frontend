@@ -10140,13 +10140,13 @@ ion-content.custom-bg {
 @keyframes bounce_circleG {
   0% { }
   50% {
-    background-color: #cc0ccc; }
+    background-color: #505050; }
   100% { } }
 
 @-webkit-keyframes bounce_circleG {
   0% { }
   50% {
-    background-color: #cc0ccc; }
+    background-color: #505050; }
   100% { } }
 
 .home-page .project-info {
