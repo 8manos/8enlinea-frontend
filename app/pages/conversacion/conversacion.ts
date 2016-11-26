@@ -76,9 +76,9 @@ export class ConversacionPage implements OnInit {
         if( this.conversacion.mensajes.length == 0 ){
           console.log( "La conversación solicitada aún no tiene mensajes." );
           if (typeof this.conversacion.mensaje_inicial != 'undefined'){
-            console.log("Se ha solicitado un mensaje inicial vacio");
-          }else{
             this.agregarMensaje( this.conversacion.mensaje_inicial );
+          }else{
+            console.log("Se ha solicitado un mensaje inicial vacio: ", this.conversacion );
           }
         }  
         this.buttons = [
