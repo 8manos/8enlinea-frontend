@@ -154,7 +154,9 @@ export class HomePage implements OnInit {
       this.styles[ accion.parametro ] = accion.valor;
     }else if( accion.tipo == "login" ){
       console.log( "Iniciando login desde accion" );
-      this.presentModal();
+       setTimeout(() => {
+        this.presentModal();
+       }, 3000);
     }else{
       console.log( "Acción pendiente de implementación: ", accion.tipo );
     }
