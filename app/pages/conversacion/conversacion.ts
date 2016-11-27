@@ -132,16 +132,7 @@ export class ConversacionPage implements OnInit {
             if( conversacion.mensajes.length === 0 ){
               console.log("Parece que no hay mensajes aún, revisando.");
               this.primerMensaje( conversacion.id );
-            }  
-            this.buttons = [
-             {
-               text: 'Cancelar',
-               role: 'cancel',
-               handler: () => {
-                 console.log('Cancel clicked');
-               }
-             }
-            ];  
+            }    
         }, 100 );
 
         for (var i = 0; i < conversacion.respuestas.length; ++i) {
@@ -168,6 +159,15 @@ export class ConversacionPage implements OnInit {
           console.log("La conversacion revisada tiene "+ datos.length + " mensajes.");
           if( datos.length == 0 ){
             console.log( "La conversación solicitada aún no tiene mensajes." );
+            this.buttons = [
+             {
+               text: 'Cancelar',
+               role: 'cancel',
+               handler: () => {
+                 console.log('Cancel clicked');
+               }
+             }
+            ];
             if (typeof this.conversacion.mensaje_inicial != 'undefined'){
               this.agregarMensaje( this.conversacion.mensaje_inicial );
             }else{
