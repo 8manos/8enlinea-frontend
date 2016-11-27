@@ -185,6 +185,15 @@ export class ioService {
       });
     }
 
+    loadDetalles( conversacion ){
+      return new Promise(resolve => {
+        this.socket.get( '/conversacion/detalles/'+ conversacion, ( data ) => {
+          console.log("Trying to resolve loadDetalles promise with data: ", data );
+          resolve( data );
+        });
+      });
+    }
+
     loadAnswers( conversacion ){
       return new Promise(resolve => {
         this.socket.get( '/conversacion/'+ conversacion +'/respuestas/', ( data ) => {
