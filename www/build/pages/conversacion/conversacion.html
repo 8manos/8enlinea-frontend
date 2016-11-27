@@ -9,7 +9,7 @@
   </ion-navbar>
 
 </ion-header>
-<ion-content class="cards-bg custom-bg">
+<ion-content class="cards-bg custom-bg" [ngStyle]="styles">
   <div class="scroll-inner-content">
     <div *ngFor="let message of conversacion.mensajes" class="message-container" [ngClass]="message.estado">
       <div class="chat-bubble" [ngClass]="(message.autor == me.id ? 'right' : 'left') + ' ' + 'autor-'+message.autor">

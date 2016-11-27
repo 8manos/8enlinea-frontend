@@ -71,6 +71,11 @@ export class ioService {
             // this.toastService.showToast( 'Nuevo mensaje...' );
             this._ioMessage$.next(data);
         });
+
+        this.socket.on('nueva_accion', (data) => {
+            // this.toastService.showToast( 'Ejecutando alguna accion...' );
+            this._ioMessage$.next(data);
+        });
     }
 
     subscribeToSails() {
@@ -154,7 +159,7 @@ export class ioService {
 
     loadMessages( conversacion ){
       return new Promise(resolve => {
-        this.socket.get( '/conversacion/'+ conversacion +'/mensajes/', ( data ) => {
+        this.socket.get( '/conversacion/findmensajes/'+ conversacion, ( data ) => {
           console.log("Trying to resolve loadMessages promise with data: ", data );
           resolve( data );
         });

@@ -17,6 +17,7 @@ export class ConversacionPage implements OnInit {
   public conversaciones:any;
   public conversacion_requested:any;
   public buttons:Array<any>;
+  public styles:Array<any>;
   private _ioServiceMessages: Array<any>;
   private zone;
   public me:any;
@@ -32,6 +33,7 @@ export class ConversacionPage implements OnInit {
   		this.conversacion_requested = navParams.get("conversacion");
       this.conversacion = this.conversacion_requested;
       this.me = { id: 0 };
+      this.styles = new Array();
       this.zone = new NgZone({ enableLongStackTrace: false });
       this._ioService.getConversacion( this.conversacion_requested.id );
       this.buttons = [
@@ -63,6 +65,8 @@ export class ConversacionPage implements OnInit {
               if( notice.accion == 'nuevo_mensaje' ){
                 this.traerMensajes();
                 this.traerRespuestas();
+              }else if( notice.accion == 'nueva_accion' ) {
+                this.accion( notice.comando );
               }
           });
 
@@ -225,6 +229,22 @@ export class ConversacionPage implements OnInit {
     });
 
     actionSheet.present();
+  }
+
+  accion( accion ){
+    if( accion.tipo == "activa_mensaje" ){
+      console.log( "Activando mensaje: ", accion.parametro );
+      this._ioService.agregarMensaje( accion.parametro, this.conversacion.id );
+    }else if( accion.tipo == "cambia_css"){
+      console.log( "Cambiando css: ", [ accion.parametro , accion.valor ] );
+      this.styles[ accion.parametro ] = accion.valor;
+    }else{
+      console.log( "Acción pendiente de implementación: ", accion.tipo );
+    }
+
+    setTimeout(() => {
+      this.content.scrollToBottom(300);
+    });
   }
 
 }
