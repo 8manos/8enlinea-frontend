@@ -38,8 +38,8 @@ export class ioService {
     }
 
     socket_url(){
-      // return "http://localhost:1337/";
-      return "http://backend.ochoenlinea.com/";
+      return "http://localhost:1337/";
+      // return "http://backend.ochoenlinea.com/";
     }
     connect( socket_host, callback:Function ) {
       if( this.connected ){
@@ -119,7 +119,7 @@ export class ioService {
 
     getConversacion( id ) {
       console.log( "Getting conversacion "+ id +" from io service");
-      this.socket.get('/conversacion', {'id': id}, (resData) => {
+      this.socket.get('/conversacion/find/'+ id , (resData) => {
         console.log( 'Conversacion: ', resData ); 
         this._conversacion.next( resData.data.conversacion );
       });
