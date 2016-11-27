@@ -226,9 +226,7 @@ export class ConversacionPage implements OnInit {
           });
     this._ioService.subscribeToConversacion( this.conversacion.id );
     this.traerMe();
-    this.menu.enable(true, 'menu_conversaciones');
-    this.menu.enable(false, 'menu_main');
-    this.menu.open();
+    this.traerRespuestas();
 
     let that = this;
     this.interval = setInterval(function() {
