@@ -1,11 +1,49 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Detalles de conversación: {{conversacion.id}}</ion-title>
+	<ion-title><a href="/"><img src="build/images/logo.barra.superior.png"></a>  Detalles: {{conversacion.nombre}} </ion-title> 
   </ion-navbar>
 
 </ion-header>
 
-<ion-content padding class="custom-bg">
+<ion-content padding class="cards-bg custom-bg detalles">
+
+	<div class="scroll-inner-content">
+		<div class="users-grid">
+			<div class="user-info">
+			  <img class="rounded" src="build/images/logo.grande.png" width="150" height="auto"/>
+			  <div class="content">
+			  	<h3>Nombre</h3>
+
+			  	<h6><strong>Status:</strong><br>Online</h6>
+				<p>Proyecto ganador de la "Beca para el desarrollo de documental interactivo para la web 2016"</p>
+			  </div>
+			</div>
+		</div>
+
+		<div class="message-grid">
+			<div class="message">
+				<img src="http://placehold.it/200x300">
+			</div>
+			<div class="message">
+				<img src="http://placehold.it/300x300">
+			</div>
+			<div class="message">
+				<img src="http://placehold.it/500x200">
+			</div>
+			<div class="message">
+				<img src="http://placehold.it/150x200">
+			</div>
+			<div class="message">
+				<img src="http://placehold.it/100x100">
+			</div>
+			<div class="message">
+				<img src="http://placehold.it/100x300">
+			</div>
+			<div class="message">
+				<img src="http://placehold.it/200x300">
+			</div>
+		</div>
+	</div>
 
 </ion-content>

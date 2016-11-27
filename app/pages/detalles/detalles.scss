@@ -1,3 +1,51 @@
 .detalles {
+	.users-grid {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
 
+		h6 {
+			font-weight: normal;
+		}
+
+		img.rounded {
+			height: 150px;
+			margin-bottom: 1.5em;
+			width: 150px;
+		}
+
+		p {
+			font-size: 1.1em;
+			font-weight: bold;
+			line-height: 1.3em;
+		}
+
+		.user-info {
+			background-color: #fff;
+			text-align:center;
+			border-radius: 1em;
+			box-shadow: -5px 5px 6px 0px rgba(0,0,0,0.07);
+			margin: 1em 0.8em 2em;
+			width: 320px;
+			padding: 1em;
+		}
+	}
+
+	.message-grid {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-content: space-around;
+		align-items:center;
+
+		.message {
+			margin: 1em;
+		}
+	}
+
+	.scroll-inner-content {
+		max-width: 95%;
+	}
 }

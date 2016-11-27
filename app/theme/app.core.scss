@@ -9,6 +9,13 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
 }
 
+img.rounded {
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: -5px 5px 6px 0px rgba(0,0,0,0.05);
+}
+
 .chat-bubble {
     background-color: #fff;
     border-radius: 5px;
@@ -49,6 +56,14 @@ h1, h2, h3, h4, h5, h6 {
 .scroll-inner-content {
     max-width: 700px;
     margin: 0 auto;
+}
+
+.toolbar-title {
+    vertical-align: middle;
+    img {
+        margin-right: 1em;
+        vertical-align: middle;
+    } 
 }
 
 .message-container {
