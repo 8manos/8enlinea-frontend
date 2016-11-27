@@ -6,13 +6,15 @@ import { ioService } from '../../services/io.service';
 import { ChatPage } from '../chat/chat';
 import { DetallesPage } from '../detalles/detalles';
 import { MultimediaPipe } from '../../pipes/multimedia.pipe';
+import { TimeagoPipe } from '../../pipes/moment.pipe';
 
 @Component({
   templateUrl: 'build/pages/conversacion/conversacion.html',
-  pipes: [MultimediaPipe]
+  pipes: [MultimediaPipe, TimeagoPipe]
 })
 
 export class ConversacionPage implements OnInit {
+  public interval:any;
   private subscription:any;
   private message_subscription:any;
   private conversaciones_subscription:any;
@@ -48,6 +50,7 @@ export class ConversacionPage implements OnInit {
            }
          }
        ];
+      
   	}
 
   ngOnInit(): void {
@@ -204,6 +207,12 @@ export class ConversacionPage implements OnInit {
     this.menu.enable(true, 'menu_conversaciones');
     this.menu.enable(false, 'menu_main');
     this.menu.open();
+
+    let that = this;
+    this.interval = setInterval(function() {
+        this.zone.run( () => { console.log("tick")});
+      }, 5000);
+
   }
 
   ionViewDidLeave() {
@@ -211,6 +220,9 @@ export class ConversacionPage implements OnInit {
     this._ioService.unsubscribeToConversacion( this.conversacion.id );
     this.subscription.unsubscribe();
     this.message_subscription.unsubscribe();
+
+    clearInterval( this.interval );
+    this.interval = null;
   }
 
   verDetalles() {

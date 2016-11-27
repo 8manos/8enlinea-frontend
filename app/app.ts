@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, enableProdMode } from '@angular/core';
 import { Platform, ionicBootstrap, Nav, Page } from 'ionic-angular';
 import { InAppBrowser } from 'ionic-native';
 import { StatusBar } from 'ionic-native';
@@ -7,7 +7,8 @@ import { TabsPage } from './pages/tabs/tabs';
 import { MultimediaPipe } from './pipes/multimedia.pipe';
 import { ioService } from './services/io.service';
 import { ToastService } from './services/toast.service';
-
+import * as moment from 'moment';
+enableProdMode();
 declare var window: any;
 
 @Component({
@@ -23,7 +24,6 @@ export class MyApp {
   constructor(private platform: Platform) {
     this.rootPage = HomePage;
     this.conversaciones = [];
-
 
     platform.ready().then(() => {
       if ( this.platform.is( 'cordova' ) ){

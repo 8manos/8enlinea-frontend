@@ -21,6 +21,7 @@
           <div id="circleG_3" class="circleG"></div>
         </div>
       </div>
+      <small [ngClass]="(message.autor == me.id ? 'right' : 'left')">{{ message.updatedAt | timeago }}</small>
     </div>
   </div>
 </ion-content>

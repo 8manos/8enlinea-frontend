@@ -53,6 +53,20 @@ h1, h2, h3, h4, h5, h6 {
 
 .message-container {
 	clear: both;
+
+    small {
+        clear: both;
+        display: none;
+        position: relative;
+        top: -5px;
+        left: 80px;
+        &.right {
+            text-align: right;
+            left: auto;
+            right: 80px;
+        }
+    }
+
     &.pendiente {
         display: none;
     }
@@ -71,6 +85,9 @@ h1, h2, h3, h4, h5, h6 {
     }
     &.enviado {
         display:block;
+        small {
+            display: block;
+        }
         .chat-bubble {
             span,
             .mensaje_multimedia {
