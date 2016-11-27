@@ -1,5 +1,5 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { Nav, NavController, NavParams,  MenuController, ActionSheetController } from 'ionic-angular';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
+import { Nav, NavController, NavParams, Content, MenuController, ActionSheetController } from 'ionic-angular';
 import { Conversacion } from '../../models/Conversacion';
 import { Http } from "@angular/http";
 import { ioService } from '../../services/io.service';
@@ -17,8 +17,11 @@ export class ConversacionPage implements OnInit {
   public conversaciones:any;
   public conversacion_requested:any;
   public buttons:Array<any>;
-  private _ioServiceMessages: Array<{}>;
+  private _ioServiceMessages: Array<any>;
   private zone;
+  public me:any;
+
+  @ViewChild(Content) content: Content;
 
   constructor(
   	private _ioService: ioService,      
@@ -28,6 +31,7 @@ export class ConversacionPage implements OnInit {
     public actionSheetCtrl: ActionSheetController ) {
   		this.conversacion_requested = navParams.get("conversacion");
       this.conversacion = this.conversacion_requested;
+      this.me = { id: 0 };
       this.zone = new NgZone({ enableLongStackTrace: false });
       this._ioService.getConversacion( this.conversacion_requested.id );
       this.buttons = [
@@ -54,7 +58,12 @@ export class ConversacionPage implements OnInit {
       //register to the ioMesage observable
       this._ioService.ioMessage$
           .subscribe( message => {
-              console.log( "iOservice message in conversacion: ", message );
+              let notice:any = message;
+              console.log( "iOservice message in conversacion: ", notice );
+              if( notice.accion == 'nuevo_mensaje' ){
+                this.traerMensajes();
+                this.traerRespuestas();
+              }
           });
 
       this._ioService.conversaciones.subscribe(
@@ -65,6 +74,67 @@ export class ConversacionPage implements OnInit {
       );
   }
 
+  traerMe(){
+    console.log("Actualizando perfil.");
+    this._ioService.loadMe().then( 
+      (data) => { 
+        this.zone.run(() => {
+          console.log( 'Loadme promise resolved with data: ', data );
+          this.me = data;
+        });
+      }
+    );
+  }
+ 
+  traerMensajes(){
+    console.log("Actualizando mensajes.");
+    this._ioService.loadMessages( this.conversacion.id ).then( 
+      (data) => { 
+        this.zone.run(() => {
+          console.log( 'Loadmessages promise resolved with data: ', data );
+          this.conversacion.mensajes = data;
+          setTimeout(() => {
+            this.content.scrollToBottom(300);
+          }, 100 );
+        });
+      }
+    );
+  }
+
+  traerRespuestas(){
+    console.log("Actualizando respuestas.");
+    this._ioService.loadAnswers( this.conversacion.id ).then( 
+      (data) => { 
+        this.zone.run(() => {
+          console.log( 'Loadanswers promise resolved with data: ', data );
+          this.conversacion.respuestas = data;
+          this.buttons = [
+           {
+             text: 'Cancelar',
+             role: 'cancel',
+             handler: () => {
+               console.log('Cancel clicked');
+             }
+           }
+          ];  
+
+          for (var i = 0; i < this.conversacion.respuestas.length; ++i) {
+            let respuesta = this.conversacion.respuestas[i];
+            this.buttons.push({
+              text: this.conversacion.respuestas[i].texto,
+              handler: () => {
+                this.enviarRespuesta( respuesta );
+              }
+            });
+          }
+          setTimeout(() => {
+            this.content.scrollToBottom(300);
+          }, 100 );
+        });
+      }
+    );
+  }
+
   showConversacion( conversacion ){
     if( !conversacion.id ){ 
         console.log( "La conversación solicitada aún no está definida." );
@@ -73,6 +143,9 @@ export class ConversacionPage implements OnInit {
         this.conversacion = conversacion;
         console.log('Scope conversación: ', this.conversacion );
         this.subscribe( this.conversacion.id );
+        setTimeout(() => {
+            this.content.scrollToBottom(300);
+        }, 100 );
         if( this.conversacion.mensajes.length == 0 ){
           console.log( "La conversación solicitada aún no tiene mensajes." );
           if (typeof this.conversacion.mensaje_inicial != 'undefined'){
@@ -112,7 +185,7 @@ export class ConversacionPage implements OnInit {
 
   enviarRespuesta( respuesta ){
     console.log('Enviando respuesta desde conversacion.ts: ', respuesta );
-    // this._ioService.sendResponse( respuesta.destino );
+    this._ioService.agregaRespuesta( this.conversacion.id, respuesta );
   }
 
   load_conversacion( conversacion ){
@@ -129,6 +202,7 @@ export class ConversacionPage implements OnInit {
   ionViewDidEnter() {
     console.log("Retomando conversación: "+ this.conversacion.id );
     this._ioService.subscribeToConversacion( this.conversacion.id );
+    this.traerMe();
     this.menu.enable(true, 'menu_conversaciones');
     this.menu.enable(false, 'menu_main');
     this.menu.open();

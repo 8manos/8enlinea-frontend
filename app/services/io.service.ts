@@ -5,6 +5,7 @@ import { Mensaje } from '../models/Mensaje'
 import { Observable } from 'rxjs/Observable'
 import { Subject } from 'rxjs/Subject'
 import { ToastService } from '../services/toast.service'
+import { Http } from '@angular/http'
 
 declare var socketIOClientStatic:any;
 declare var SailsIOClient:any;
@@ -20,13 +21,14 @@ export class ioService {
     private socket;
     public socketHost:String;
     public connected;
+    public socket_host:string;
 
-    constructor( private toastService: ToastService ) {
+    constructor( private toastService: ToastService, private http: Http ) {
 
-        var socket_host = this.socket_url();
+        this.socket_host = this.socket_url();
 
-        console.log("Socket host: ", socket_host );
-        this.connect( socket_host, function(){} );
+        console.log("Socket host: ", this.socket_host );
+        this.connect( this.socket_host, function(){} );
         this._ioMessage$ = <Subject<{}>>new Subject();
         this.registerSailsListener();
     }
@@ -66,6 +68,7 @@ export class ioService {
         }); 
 
         this.socket.on('nuevo_mensaje', (data) => {
+            // this.toastService.showToast( 'Nuevo mensaje...' );
             this._ioMessage$.next(data);
         });
     }
@@ -127,6 +130,17 @@ export class ioService {
       });
     }
 
+    agregaRespuesta( conversacion, respuesta:any ){
+      console.log( "Agregando respuesta en conversacion "+ conversacion +" from io service con destino: ", respuesta.destino );
+      this.socket.get('/conversacion/agregarespuesta/'+ conversacion, {
+          destino: respuesta.destino,
+          texto: respuesta.texto
+      }, ( resData ) => {
+        console.log("Agrega respuesta response data: ", resData );
+        // this._ioMessage$.next(resData);
+      });
+    }
+
     agregarMensaje( plantilla, conversacion ) {
       console.log( "Agregando mensaje from chat service en conversacion: " + conversacion + ", desde plantilla: ", plantilla );
       this.socket.get('/conversacion/agregar', {
@@ -135,6 +149,33 @@ export class ioService {
       }, ( resData ) => {
         console.log("Response data agregando mensaje: ", resData );
         // this._ioMessage$.next(resData);
+      });
+    }
+
+    loadMessages( conversacion ){
+      return new Promise(resolve => {
+        this.socket.get( '/conversacion/'+ conversacion +'/mensajes/', ( data ) => {
+          console.log("Trying to resolve loadMessages promise with data: ", data );
+          resolve( data );
+        });
+      });
+    }
+
+    loadAnswers( conversacion ){
+      return new Promise(resolve => {
+        this.socket.get( '/conversacion/'+ conversacion +'/respuestas/', ( data ) => {
+          console.log("Trying to resolve loadAnswers promise with data: ", data );
+          resolve( data );
+        });
+      });
+    }
+
+    loadMe(){
+      return new Promise(resolve => {
+        this.socket.get( '/user/me/', ( data ) => {
+          console.log("Trying to resolve loadMe promise with data: ", data );
+          resolve( data );
+        });
       });
     }
 
