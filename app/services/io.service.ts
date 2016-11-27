@@ -127,8 +127,10 @@ export class ioService {
     getConversacion( id ) {
       console.log( "Getting conversacion "+ id +" from io service");
       this.socket.get('/conversacion/find/'+ id , (resData) => {
-        console.log( 'Conversacion: ', resData ); 
-        this._conversacion.next( resData.data.conversacion );
+        if (typeof resData != 'undefined'){
+          console.log( 'Conversacion from service to show: ', resData ); 
+          this._conversacion.next( resData.data.conversacion );
+        }
       });
     }
 

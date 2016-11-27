@@ -40,7 +40,7 @@ export class ConversacionPage implements OnInit {
       this.me = { id: 0 };
       this.styles = new Array();
       this.zone = new NgZone({ enableLongStackTrace: false });
-      this._ioService.getConversacion( this.conversacion_requested.id );
+      
       this.buttons = [
          {
            text: 'Cancelar',
@@ -54,25 +54,7 @@ export class ConversacionPage implements OnInit {
   	}
 
   ngOnInit(): void {
-      this.subscription = this._ioService.conversacion.subscribe(
-        resData => {
-          console.log( "Conversacion Subscribed: ", resData );
-          this.showConversacion( resData );
-        }
-      );
 
-      //register to the ioMesage observable
-      this.message_subscription = this._ioService.ioMessage$
-          .subscribe( message => {
-              let notice:any = message;
-              console.log( "iOservice message in conversacion: ", notice );
-              if( notice.accion == 'nuevo_mensaje' ){
-                this.traerMensajes();
-                this.traerRespuestas();
-              }else if( notice.accion == 'nueva_accion' && notice.conversacion == this.conversacion.id ) {
-                this.accion( notice.comando );
-              }
-          });
   }
 
   traerMe(){
@@ -142,28 +124,25 @@ export class ConversacionPage implements OnInit {
     }else{   
       this.zone.run(() => {
         this.conversacion = conversacion;
-        console.log('Scope conversación: ', this.conversacion );
+        console.log('Scope conversación: ',  this.conversacion );
+        console.log('Scope mensajes: ', this.conversacion.mensajes );
         this.subscribe( this.conversacion.id );
         setTimeout(() => {
             this.content.scrollToBottom(300);
+            if( conversacion.mensajes.length === 0 ){
+              console.log("Parece que no hay mensajes aún, revisando.");
+              this.primerMensaje( conversacion.id );
+            }  
+            this.buttons = [
+             {
+               text: 'Cancelar',
+               role: 'cancel',
+               handler: () => {
+                 console.log('Cancel clicked');
+               }
+             }
+            ];  
         }, 100 );
-        if( this.conversacion.mensajes.length == 0 ){
-          console.log( "La conversación solicitada aún no tiene mensajes." );
-          if (typeof this.conversacion.mensaje_inicial != 'undefined'){
-            this.agregarMensaje( this.conversacion.mensaje_inicial );
-          }else{
-            console.log("Se ha solicitado un mensaje inicial vacio: ", this.conversacion );
-          }
-        }  
-        this.buttons = [
-         {
-           text: 'Cancelar',
-           role: 'cancel',
-           handler: () => {
-             console.log('Cancel clicked');
-           }
-         }
-        ];  
 
         for (var i = 0; i < conversacion.respuestas.length; ++i) {
           let respuesta = conversacion.respuestas[i];
@@ -177,6 +156,27 @@ export class ConversacionPage implements OnInit {
 
       });
     }
+  }
+
+  primerMensaje( id ){
+    console.log("Revisando si ya tiene mensajes.")
+    this._ioService.loadMessages( id ).then( 
+      (data) => { 
+        this.zone.run(() => {
+          console.log( 'Loadmessages promise resolved with data: ', data );
+          let datos:any = data;
+          console.log("La conversacion revisada tiene "+ datos.length + " mensajes.");
+          if( datos.length == 0 ){
+            console.log( "La conversación solicitada aún no tiene mensajes." );
+            if (typeof this.conversacion.mensaje_inicial != 'undefined'){
+              this.agregarMensaje( this.conversacion.mensaje_inicial );
+            }else{
+              console.log("Se ha solicitado un mensaje inicial vacio: ", this.conversacion );
+            }
+          }
+        });
+      }
+    );    
   }
 
   agregarMensaje( plantilla ){
@@ -196,12 +196,34 @@ export class ConversacionPage implements OnInit {
   }
 
   subscribe( id ) {
-    console.log("Viendo conversación: "+ id );
+    console.log("Uniendose al socket de conversación: "+ id );
     this._ioService.subscribeToConversacion( id );
   }
 
   ionViewDidEnter() {
     console.log("Retomando conversación: "+ this.conversacion.id );
+    this._ioService.getConversacion( this.conversacion_requested.id );
+    this.subscription = this._ioService.conversacion.subscribe(
+        resData => {
+          if (typeof resData != 'undefined'){
+            console.log( "Conversacion Subscribed: ", resData );
+            this.showConversacion( resData );
+          }
+        }
+      );
+
+      //register to the ioMesage observable
+      this.message_subscription = this._ioService.ioMessage$
+          .subscribe( message => {
+              let notice:any = message;
+              console.log( "iOservice message in conversacion: ", notice );
+              if( notice.accion == 'nuevo_mensaje' ){
+                this.traerMensajes();
+                this.traerRespuestas();
+              }else if( notice.accion == 'nueva_accion' && notice.conversacion == this.conversacion.id ) {
+                this.accion( notice.comando );
+              }
+          });
     this._ioService.subscribeToConversacion( this.conversacion.id );
     this.traerMe();
     this.menu.enable(true, 'menu_conversaciones');
