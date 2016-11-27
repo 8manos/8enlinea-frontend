@@ -72,7 +72,12 @@ export class HomePage implements OnInit {
       this._ioService.ioMessage$
           .subscribe( message => {
               console.log( "iOservice message in home: ", message );
-              this.displayMessage( message );
+              let anuncio:any = message;
+              if( anuncio.accion == "nueva_historia"){
+                console.log( 'Ignoring broadcast in home' );
+              }else{
+                this.displayMessage( message );
+              }
           });
   }
 

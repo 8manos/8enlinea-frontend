@@ -38,8 +38,8 @@ export class ioService {
     }
 
     socket_url(){
-      // return "http://localhost:1337/";
-      return "http://backend.ochoenlinea.com/";
+      return "http://localhost:1337/";
+      // return "http://backend.ochoenlinea.com/";
     }
     connect( socket_host, callback:Function ) {
       if( this.connected ){
@@ -154,6 +154,25 @@ export class ioService {
       }, ( resData ) => {
         console.log("Response data agregando mensaje: ", resData );
         // this._ioMessage$.next(resData);
+      });
+    }
+
+    nuevaHistoria( historia ) {
+      console.log( "Agregando nueva historia from chat service: ", historia );
+      this.socket.get('/conversacion/nueva', {
+          historia: historia
+      }, ( resData ) => {
+        console.log("Response data agregando historia: ", resData );
+        // this._ioMessage$.next(resData);
+      });
+    }
+
+    loadConversaciones(){
+      return new Promise(resolve => {
+        this.socket.get( '/user/conversaciones', ( data ) => {
+          console.log("Trying to resolve loadConversaciones promise with data: ", data );
+          resolve( data );
+        });
       });
     }
 

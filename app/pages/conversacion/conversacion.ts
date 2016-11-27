@@ -13,6 +13,9 @@ import { MultimediaPipe } from '../../pipes/multimedia.pipe';
 })
 
 export class ConversacionPage implements OnInit {
+  private subscription:any;
+  private message_subscription:any;
+  private conversaciones_subscription:any;
   public conversacion:any;
   public conversaciones:any;
   public conversacion_requested:any;
@@ -48,9 +51,7 @@ export class ConversacionPage implements OnInit {
   	}
 
   ngOnInit(): void {
-      this._ioService.getConversaciones();
-
-      this._ioService.conversacion.subscribe(
+      this.subscription = this._ioService.conversacion.subscribe(
         resData => {
           console.log( "Conversacion Subscribed: ", resData );
           this.showConversacion( resData );
@@ -58,24 +59,17 @@ export class ConversacionPage implements OnInit {
       );
 
       //register to the ioMesage observable
-      this._ioService.ioMessage$
+      this.message_subscription = this._ioService.ioMessage$
           .subscribe( message => {
               let notice:any = message;
               console.log( "iOservice message in conversacion: ", notice );
               if( notice.accion == 'nuevo_mensaje' ){
                 this.traerMensajes();
                 this.traerRespuestas();
-              }else if( notice.accion == 'nueva_accion' ) {
+              }else if( notice.accion == 'nueva_accion' && notice.conversacion == this.conversacion.id ) {
                 this.accion( notice.comando );
               }
           });
-
-      this._ioService.conversaciones.subscribe(
-        resData => {
-          console.log( "ResData Subscribed: ", resData );
-          this.conversaciones = resData;
-        }
-      );
   }
 
   traerMe(){
@@ -215,6 +209,8 @@ export class ConversacionPage implements OnInit {
   ionViewDidLeave() {
     console.log("Abandonando conversación: "+ this.conversacion.id );
     this._ioService.unsubscribeToConversacion( this.conversacion.id );
+    this.subscription.unsubscribe();
+    this.message_subscription.unsubscribe();
   }
 
   verDetalles() {
@@ -238,12 +234,15 @@ export class ConversacionPage implements OnInit {
     }else if( accion.tipo == "cambia_css"){
       console.log( "Cambiando css: ", [ accion.parametro , accion.valor ] );
       this.styles[ accion.parametro ] = accion.valor;
+    }else if( accion.tipo == "inicia_conversacion"){
+      this._ioService.nuevaHistoria( accion.parametro );
+      this.navCtrl.pop();
     }else{
       console.log( "Acción pendiente de implementación: ", accion.tipo );
     }
 
     setTimeout(() => {
-      this.content.scrollToBottom(300);
+      this.content.scrollToBottom(100);
     });
   }
 

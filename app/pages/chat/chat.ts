@@ -4,6 +4,7 @@ import { AlertController, Nav, NavController, ActionSheetController, MenuControl
 import { Http } from "@angular/http";
 import { NgZone } from "@angular/core";
 import { ioService } from '../../services/io.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   templateUrl: 'build/pages/chat/chat.html'
@@ -11,10 +12,12 @@ import { ioService } from '../../services/io.service';
 
 export class ChatPage implements OnInit {
   public conversaciones:any;
+  private subscription:any;
   private _ioServiceMessages: Array<{}>;
   private zone;
 
   constructor(
+      private toastService: ToastService,
       private _ioService: ioService, 
       private menu: MenuController, 
       private navCtrl: NavController
@@ -27,10 +30,16 @@ export class ChatPage implements OnInit {
       //register to the observables
       this._ioService.ioMessage$
           .subscribe(message => {
-              console.log( "iOservice message: ", message );
+              console.log( "iOservice message in chat.ts: ", message );
+              let anuncio:any = message;
+              if( anuncio.accion == "nueva_historia"){
+                console.log( "Recargando conversaciones" );
+                this.toastService.showToast('Se ha iniciado una nueva conversación.');
+                this.refrescarConversaciones();
+              }
           });
           
-      this._ioService.conversaciones.subscribe(
+      this.subscription = this._ioService.conversaciones.subscribe(
         resData => {
           this.zone.run( () => {
             console.log( "Conversaciones from subscription: ", resData );
@@ -46,9 +55,25 @@ export class ChatPage implements OnInit {
     this.menu.close();
   }
 
+  refrescarConversaciones(){
+    console.log("Actualizando conversaciones.");
+    this._ioService.loadConversaciones().then( 
+      (data) => { 
+        this.zone.run(() => {
+          console.log( 'LoadConversaciones promise resolved with data: ', data );
+          this.conversaciones = data;
+        });
+      }
+    );
+  }
+
 	ionViewDidEnter() {
 		this.menu.enable(true, 'menu_conversaciones');
 		this.menu.enable(false, 'menu_main');
     this.menu.open();
 	}
+
+  ionViewDidLeave() {
+    this.subscription.unsubscribe();
+  }
 }
