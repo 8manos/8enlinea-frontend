@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core'
 import { Mensaje } from '../models/Mensaje'
 import { Observable } from 'rxjs/Observable'
 import { Subject } from 'rxjs/Subject'
+import { ToastService } from '../services/toast.service'
 
 declare var socketIOClientStatic:any;
 declare var SailsIOClient:any;
@@ -20,7 +21,8 @@ export class ioService {
     public socketHost:String;
     public connected;
 
-    constructor() {
+    constructor( private toastService: ToastService ) {
+
         var socket_host = this.socket_url();
 
         console.log("Socket host: ", socket_host );
@@ -42,14 +44,17 @@ export class ioService {
         console.log("Socket is already connected.");
       }else{
         console.log("Socket is connecting.");
+        this.toastService.showToast( 'Conectando al servidor...' );
         this.socket = io.sails.connect( socket_host );
         this.socket.on( 'connect', () => {
           console.log("Socket is now connected");
+          this.toastService.showToast( 'Conexión exitosa!' );
           this.connected = true; 
           callback();
         });
         this.socket.on( 'disconnect', () => {
           console.log("Socket is now disconnected");
+          this.toastService.showToast( 'El servidor se ha desconectado...' );
           this.connected = false; 
         });
       }

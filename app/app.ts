@@ -6,6 +6,7 @@ import { HomePage } from './pages/home/home';
 import { TabsPage } from './pages/tabs/tabs';
 import { MultimediaPipe } from './pipes/multimedia.pipe';
 import { ioService } from './services/io.service';
+import { ToastService } from './services/toast.service';
 
 declare var window: any;
 
@@ -39,4 +40,4 @@ export class MyApp {
   }
 }
 
-ionicBootstrap( MyApp, [ioService] );
+ionicBootstrap( MyApp, [ioService, ToastService] );

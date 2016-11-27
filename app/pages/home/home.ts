@@ -7,6 +7,7 @@ import { MultimediaPipe } from '../../pipes/multimedia.pipe';
 import { Http } from "@angular/http";
 import { NgZone } from "@angular/core";
 import { ioService } from '../../services/io.service';
+import { ToastService } from '../../services/toast.service';
 import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from '../login/login';
 
@@ -27,6 +28,7 @@ export class HomePage implements OnInit {
   private socket;
   
   constructor( 
+    private toastService: ToastService,
     private _ioService: ioService, 
     public actionSheetCtrl: ActionSheetController, 
     public navCtrl: NavController, 
@@ -152,6 +154,7 @@ export class HomePage implements OnInit {
       this.styles[ accion.parametro ] = accion.valor;
     }else if( accion.tipo == "login" ){
       console.log( "Iniciando login desde accion" );
+      this.toastService.showToast( 'Iniciando sesión...' );
        setTimeout(() => {
         this.presentModal();
        }, 3000);
