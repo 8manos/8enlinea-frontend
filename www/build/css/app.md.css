@@ -10276,7 +10276,11 @@ ion-tabbar.show-tabbar {
   -ms-flex-align: center;
   align-items: center; }
   .detalles .message-grid .message {
-    margin: 1em; }
+    background-color: #fff;
+    border-radius: 0.5em;
+    box-shadow: -5px 5px 6px 0px rgba(0, 0, 0, 0.07);
+    margin: 1em;
+    padding: 0.5em; }
 
 .detalles .scroll-inner-content {
   max-width: 95%; }

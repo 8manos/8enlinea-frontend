@@ -210,7 +210,7 @@ export class ConversacionPage implements OnInit {
 
     let that = this;
     this.interval = setInterval(function() {
-        this.zone.run( () => { console.log("tick")});
+        that.zone.run( () => { console.log("tick")});
       }, 5000);
 
   }

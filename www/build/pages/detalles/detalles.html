@@ -11,7 +11,7 @@
 	<div class="scroll-inner-content">
 		<div class="users-grid">
 			<div class="user-info" *ngFor="let user of conversacion.usuarios">
-			  <img class="rounded" src="build/images/logo.grande.png" width="150" height="auto"/>
+			  <img class="rounded" src="{{ user.image || user.gravatarUrl }}" width="150" height="auto"/>
 			  <div class="content">
 			  	<h3>{{ user.name || user.username }}</h3>
 
@@ -23,7 +23,8 @@
 
 		<div class="message-grid">
 			<div class="message" *ngFor="let mensaje of conversacion.mensajes">
-				{{ mensaje.multimedia | multimedia }}
+				<div class="iner-mm-message" [innerHTML]="mensaje.multimedia | multimedia"></div>
+				<small>{{ mensaje.updatedAt | timeago }}</small>
 			</div>
 		</div>
 	</div>

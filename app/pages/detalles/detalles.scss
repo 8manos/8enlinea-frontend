@@ -41,7 +41,11 @@
 		align-items:center;
 
 		.message {
+			background-color: #fff;
+			border-radius: 0.5em;
+			box-shadow: -5px 5px 6px 0px rgba(0,0,0,0.07);
 			margin: 1em;
+			padding: 0.5em;
 		}
 	}
 
