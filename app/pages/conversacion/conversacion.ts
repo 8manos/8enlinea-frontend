@@ -235,8 +235,10 @@ export class ConversacionPage implements OnInit {
       console.log( "Cambiando css: ", [ accion.parametro , accion.valor ] );
       this.styles[ accion.parametro ] = accion.valor;
     }else if( accion.tipo == "inicia_conversacion"){
-      this._ioService.nuevaHistoria( accion.parametro );
-      this.navCtrl.pop();
+      setTimeout(() => {
+        this._ioService.nuevaHistoria( accion.parametro );
+        this.navCtrl.pop();
+      }, 1111 );
     }else{
       console.log( "Acción pendiente de implementación: ", accion.tipo );
     }
