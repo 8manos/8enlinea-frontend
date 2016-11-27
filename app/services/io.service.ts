@@ -76,6 +76,13 @@ export class ioService {
             // this.toastService.showToast( 'Ejecutando alguna accion...' );
             this._ioMessage$.next(data);
         });
+
+        this.socket.on('nuevo_toast', (data) => {
+            // this.toastService.showToast( 'Ejecutando alguna accion...' );
+            setTimeout( () => {
+              this.toastService.showToast( data.toast.parametro )
+            }, data.toast.valor | 1 );
+        });
     }
 
     subscribeToSails() {

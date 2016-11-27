@@ -241,8 +241,8 @@ export class ConversacionPage implements OnInit {
 
   accion( accion ){
     if( accion.tipo == "activa_mensaje" ){
-      console.log( "Activando mensaje: ", accion.parametro );
-      this._ioService.agregarMensaje( accion.parametro, this.conversacion.id );
+      // console.log( "Activando mensaje: ", accion.parametro );
+      // this._ioService.agregarMensaje( accion.parametro, this.conversacion.id );
     }else if( accion.tipo == "cambia_css"){
       console.log( "Cambiando css: ", [ accion.parametro , accion.valor ] );
       this.styles[ accion.parametro ] = accion.valor;
