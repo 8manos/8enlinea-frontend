@@ -16,6 +16,14 @@ img.rounded {
     box-shadow: -5px 5px 6px 0px rgba(0,0,0,0.05);
 }
 
+.bar-button {
+    background-color: transparent !important;
+}
+
+.offline {
+    opacity: 0.3;
+}
+
 .chat-bubble {
     background-color: #fff;
     border-radius: 5px;
