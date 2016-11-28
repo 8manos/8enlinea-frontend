@@ -9877,6 +9877,10 @@ ion-tabbar.show-tabbar {
     background-color: #505050; }
   100% { } }
 
+.about {
+  text-align: center;
+  padding-top: 5em; }
+
 .home-page .project-info {
   margin: 1em auto 0;
   text-align: center;
