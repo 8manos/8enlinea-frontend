@@ -13,6 +13,7 @@ declare var io:any;
 
 @Injectable()
 export class ioService {
+    private tick:any;
     private _ioMessage$: Subject<{}>;
     private _conversaciones: BehaviorSubject<Array<Object>> = new BehaviorSubject(Array([]));
     public conversaciones: Observable<Array<Object>> = this._conversaciones.asObservable();
@@ -38,8 +39,8 @@ export class ioService {
     }
 
     socket_url(){
-      // return "http://localhost:1337/";
-      return "http://backend.ochoenlinea.com/";
+      return "http://localhost:1337/";
+      // return "http://backend.ochoenlinea.com/";
     }
     connect( socket_host, callback:Function ) {
       if( this.connected ){
@@ -53,11 +54,16 @@ export class ioService {
           this.toastService.showToast( 'Conexión exitosa!' );
           this.connected = true; 
           callback();
+          this.tick = setInterval(() => {
+            this.keepAlive();
+          }, 15000 );
         });
         this.socket.on( 'disconnect', () => {
           console.log("Socket is now disconnected");
           this.toastService.showToast( 'El servidor se ha desconectado...' );
           this.connected = false; 
+          clearInterval( this.tick );
+          this.connect( this.socket_host, function(){} );
         });
       }
     }
@@ -113,6 +119,12 @@ export class ioService {
     getIntro(){
       this.socket.get('/intro', null, function (resData) {
         console.log( 'intro: ', resData ); 
+      });
+    }
+
+    keepAlive(){
+      this.socket.get('/ping', null, function (resData) {
+        console.log( 'ping: ', resData ); 
       });
     }
 
