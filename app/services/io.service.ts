@@ -15,6 +15,8 @@ declare var io:any;
 export class ioService {
     private tick:any;
     private _ioMessage$: Subject<{}>;
+    private _conteos: BehaviorSubject<Array<Object>> = new BehaviorSubject(Array([]));
+    public conteos: Observable<Array<Object>> = this._conteos.asObservable();
     private _conversaciones: BehaviorSubject<Array<Object>> = new BehaviorSubject(Array([]));
     public conversaciones: Observable<Array<Object>> = this._conversaciones.asObservable();
     private _conversacion: BehaviorSubject<Array<Object>> = new BehaviorSubject(Array([]));
@@ -130,14 +132,24 @@ export class ioService {
 
     getConversaciones( ) {
       console.log( "Getting conversaciones from io service");
+      this.getConteos();
       this.socket.get('/user/conversaciones', null, (resData) => {
         console.log( 'Conversaciones: ', resData ); 
         this._conversaciones.next( resData );
       });
     }
 
+    getConteos( ) {
+      console.log( "Getting conteos from io service");
+      this.socket.get('/user/conteos', null, (resData) => {
+        console.log( 'Conteos: ', resData ); 
+        this._conteos.next( resData );
+      });
+    }
+
     getConversacion( id ) {
       console.log( "Getting conversacion "+ id +" from io service");
+      this.getConteos();
       this.socket.get('/conversacion/find/'+ id , (resData) => {
         if (typeof resData != 'undefined'){
           console.log( 'Conversacion from service to show: ', resData ); 
@@ -158,23 +170,25 @@ export class ioService {
 
     agregaRespuesta( conversacion, respuesta:any ){
       console.log( "Agregando respuesta en conversacion "+ conversacion +" from io service con destino: ", respuesta.destino );
+      
       this.socket.get('/conversacion/agregarespuesta/'+ conversacion, {
           destino: respuesta.destino,
           texto: respuesta.texto
       }, ( resData ) => {
         console.log("Agrega respuesta response data: ", resData );
-        // this._ioMessage$.next(resData);
+        this.getConteos();
       });
     }
 
     agregarMensaje( plantilla, conversacion ) {
       console.log( "Agregando mensaje from chat service en conversacion: " + conversacion + ", desde plantilla: ", plantilla );
+      
       this.socket.get('/conversacion/agregar', {
           conversacion: conversacion,
           plantilla: plantilla
       }, ( resData ) => {
         console.log("Response data agregando mensaje: ", resData );
-        // this._ioMessage$.next(resData);
+        this.getConteos();
       });
     }
 
@@ -184,7 +198,7 @@ export class ioService {
           historia: historia
       }, ( resData ) => {
         console.log("Response data agregando historia: ", resData );
-        // this._ioMessage$.next(resData);
+        this.getConteos();
       });
     }
 
@@ -192,6 +206,7 @@ export class ioService {
       return new Promise(resolve => {
         this.socket.get( '/user/conversaciones', ( data ) => {
           console.log("Trying to resolve loadConversaciones promise with data: ", data );
+          this.getConteos();
           resolve( data );
         });
       });
@@ -201,6 +216,7 @@ export class ioService {
       return new Promise(resolve => {
         this.socket.get( '/conversacion/findmensajes/'+ conversacion, ( data ) => {
           console.log("Trying to resolve loadMessages promise with data: ", data );
+          this.getConteos();
           resolve( data );
         });
       });
@@ -210,6 +226,7 @@ export class ioService {
       return new Promise(resolve => {
         this.socket.get( '/conversacion/detalles/'+ conversacion, ( data ) => {
           console.log("Trying to resolve loadDetalles promise with data: ", data );
+          this.getConteos();
           resolve( data );
         });
       });
@@ -228,6 +245,7 @@ export class ioService {
       return new Promise(resolve => {
         this.socket.get( '/user/me/', ( data ) => {
           console.log("Trying to resolve loadMe promise with data: ", data );
+          this.getConteos();
           resolve( data );
         });
       });

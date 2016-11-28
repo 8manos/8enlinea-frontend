@@ -16,7 +16,7 @@
 			  	<h3>{{ user.name || user.username }}</h3>
 
 			  	<h6><strong>Status:</strong><br>Online</h6>
-				<p>{{ user.status }}</p>
+				<p *ngIf="user.status" >{{ user.status }}</p>
 			  </div>
 			</div>
 		</div>

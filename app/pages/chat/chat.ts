@@ -5,9 +5,11 @@ import { Http } from "@angular/http";
 import { NgZone } from "@angular/core";
 import { ioService } from '../../services/io.service';
 import { ToastService } from '../../services/toast.service';
+import { TimeagoPipe } from '../../pipes/moment.pipe';
 
 @Component({
-  templateUrl: 'build/pages/chat/chat.html'
+  templateUrl: 'build/pages/chat/chat.html',
+  pipes: [TimeagoPipe]
 })
 
 export class ChatPage implements OnInit {
@@ -22,12 +24,12 @@ export class ChatPage implements OnInit {
       private menu: MenuController, 
       private navCtrl: NavController
   ) {
-      this._ioService.getConversaciones();
       this.zone = new NgZone({ enableLongStackTrace: false });
   }
 
   ngOnInit(): void {
       //register to the observables
+      this._ioService.getConversaciones();
       this._ioService.ioMessage$
           .subscribe(message => {
               console.log( "iOservice message in chat.ts: ", message );
@@ -46,7 +48,9 @@ export class ChatPage implements OnInit {
             this.conversaciones = resData;
           });
         }
+
       );
+      this.refrescarConversaciones();
   }
 
   load_conversacion( conversacion ){
@@ -68,6 +72,7 @@ export class ChatPage implements OnInit {
   }
 
 	ionViewDidEnter() {
+    this.refrescarConversaciones();
 		this.menu.enable(true, 'menu_conversaciones');
 		this.menu.enable(false, 'menu_main');
     this.menu.open();

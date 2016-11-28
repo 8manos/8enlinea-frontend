@@ -1,7 +1,7 @@
 
 <ion-tabs>
-  <ion-tab [root]="tab4Root" tabTitle="Conversaciones" tabIcon="chatboxes" tabBadge="1" tabBadgeStyle="danger"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Contactos" tabIcon="contacts" tabBadge="1" tabBadgeStyle="danger"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="Conversaciones" tabIcon="chatboxes" tabBadge="{{ conteos.conversaciones }}" tabBadgeStyle="danger"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="Contactos" tabIcon="contacts" tabBadge="{{ conteos.contactos }}" tabBadgeStyle="danger"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="Info" tabIcon="information-circle"></ion-tab>
   <ion-tab [root]="tab5Root" tabTitle="Configuración" tabIcon="settings"></ion-tab>
 </ion-tabs>

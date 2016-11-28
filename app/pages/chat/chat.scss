@@ -1,3 +1,16 @@
 .chat {
+	.chat-cont {		
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-content: space-around;
+		align-items: center;
+		text-align: center;
 
+			h1 {
+				color: #fff;
+				display: flex-item;
+			}
+	}
 }
