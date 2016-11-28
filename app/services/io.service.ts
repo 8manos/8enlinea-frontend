@@ -41,8 +41,8 @@ export class ioService {
     }
 
     socket_url(){
-      // return "http://localhost:1337/";
-      return "http://backend.ochoenlinea.com/";
+      return "http://localhost:1337/";
+      // return "http://backend.ochoenlinea.com/";
     }
     connect( socket_host, callback:Function ) {
       if( this.connected ){
@@ -216,6 +216,16 @@ export class ioService {
       return new Promise(resolve => {
         this.socket.get( '/conversacion/findmensajes/'+ conversacion, ( data ) => {
           console.log("Trying to resolve loadMessages promise with data: ", data );
+          this.getConteos();
+          resolve( data );
+        });
+      });
+    }
+
+    resetUser(){
+      return new Promise(resolve => {
+        this.socket.get( '/user/reset', ( data ) => {
+          console.log("Trying to resolve resetUser promise with data: ", data );
           this.getConteos();
           resolve( data );
         });

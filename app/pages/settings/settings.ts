@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ioService } from '../../services/io.service';
+import { ToastService } from '../../services/toast.service'
 
 /*
   Generated class for the SettingsPage page.
@@ -11,9 +13,21 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'build/pages/settings/settings.html',
 })
 export class SettingsPage {
+  private zone;
+  
+  constructor( private toastService: ToastService, private navCtrl: NavController, private _ioService: ioService ) {
+  	this.zone = new NgZone({ enableLongStackTrace: false });
+  }
 
-  constructor(private navCtrl: NavController) {
-
+  reset(){
+  	this._ioService.resetUser().then( 
+      (data) => { 
+        this.zone.run(() => {
+          console.log( 'resetUser promise resolved with data: ', data );
+          this.toastService.showToast( 'Todas las conversaciones han sido eliminadas.' );
+        });
+      }
+    );
   }
 
 }
