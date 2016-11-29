@@ -29,7 +29,6 @@ export class ChatPage implements OnInit {
 
   ngOnInit(): void {
       //register to the observables
-      this._ioService.getConversaciones();
       this._ioService.ioMessage$
           .subscribe(message => {
               console.log( "iOservice message in chat.ts: ", message );
@@ -50,7 +49,6 @@ export class ChatPage implements OnInit {
         }
 
       );
-      this.refrescarConversaciones();
   }
 
   load_conversacion( conversacion ){
@@ -72,7 +70,7 @@ export class ChatPage implements OnInit {
   }
 
 	ionViewDidEnter() {
-    this.refrescarConversaciones();
+    this._ioService.getConversaciones();
 		this.menu.enable(true, 'menu_conversaciones');
 		this.menu.enable(false, 'menu_main');
     this.menu.open();

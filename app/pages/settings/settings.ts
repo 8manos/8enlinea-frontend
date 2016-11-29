@@ -24,6 +24,7 @@ export class SettingsPage {
       (data) => { 
         this.zone.run(() => {
           console.log( 'resetUser promise resolved with data: ', data );
+          this._ioService.getConteos();
           this.toastService.showToast( 'Todas las conversaciones han sido eliminadas.' );
         });
       }

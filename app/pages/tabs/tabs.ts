@@ -34,7 +34,7 @@ export class TabsPage {
     this.tab4Root = ChatPage;
     this.tab5Root = SettingsPage;
     this.test = 'test';
-    this.conteos = { mensajes: 0, contactos: 0, conversaciones: 0 };
+    this.conteos = { mensajes: 0, contactos: 3, conversaciones: 0 };
     this.zone = new NgZone({ enableLongStackTrace: false });
   }
 
