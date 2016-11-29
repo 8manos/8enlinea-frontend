@@ -129,6 +129,7 @@ export class ConversacionPage implements OnInit {
         this.subscribe( this.conversacion.id );
         setTimeout(() => {
             this.content.scrollToBottom(300);
+            this.traerRespuestas();
             if( conversacion.mensajes.length === 0 ){
               console.log("Parece que no hay mensajes aún, revisando.");
               this.primerMensaje( conversacion.id );
@@ -226,7 +227,6 @@ export class ConversacionPage implements OnInit {
           });
     this._ioService.subscribeToConversacion( this.conversacion.id );
     this.traerMe();
-    this.traerRespuestas();
 
     let that = this;
     this.interval = setInterval(function() {
